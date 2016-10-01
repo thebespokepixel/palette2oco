@@ -10,6 +10,10 @@
     "test": "xo & ava",
     "postpublish": "greenkeeper-postpublish"
   },
+  "files": [
+    "index-es.js",
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MarkGriffiths/palette2oco.git"
