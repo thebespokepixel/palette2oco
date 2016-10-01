@@ -9,12 +9,14 @@ engines:
     enabled: true
     config:
       config: test/fixtures/config/.eslintrc
+    exclude_fingerprints:
+    - 2e42fb5b3c207f829186ce70962ed22f
   fixme:
     enabled: true
 ratings:
   paths:
   - "src/**.js"
 exclude_paths:
+- bin/
 - test/
-- lib/
 - index*.js
