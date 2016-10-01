@@ -1,6 +1,6 @@
 ps-test:
   import/
-    file/source: test/fixtures/in/ase/ps-test.ase
+    file/source: fixtures/in/ase/ps-test.ase
     file/type: ase
   RGB Red: rgb(255, 0, 0)
   RGB Yellow: rgb(255, 255, 0)

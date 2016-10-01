@@ -1,6 +1,6 @@
 test:
   import/
-    file/source: test/fixtures/in/oco/test.oco
+    file/source: fixtures/in/oco/test.oco
     file/type: oco
   Test:
     Ku Crimson: rgb(240, 0, 0)
