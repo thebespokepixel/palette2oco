@@ -11,22 +11,14 @@ test('Named palette (JSON)', t => {
 		})
 })
 
-test.failing('Bad palette (JSON)', t => {
-	const fixture = cat('fixtures/out/json.oco').toString()
-	return paletteReader('fixtures/in/json')
-		.load(['fixtures/in/json/invalid.json'])
-		.then(palette => {
-			t.is(palette.render(), fixture)
-		})
+test('Bad palette (JSON)', t => {
+	t.throws(paletteReader('fixtures/in/json')
+		.load(['fixtures/in/json/invalid.json']))
 })
 
-test.failing('Bad color (JSON)', t => {
-	const fixture = cat('fixtures/out/json.oco').toString()
-	return paletteReader('fixtures/in/json')
-		.load(['fixtures/in/json/bad-color.json'])
-		.then(palette => {
-			t.is(palette.render(), fixture)
-		})
+test('Bad color (JSON)', t => {
+	t.throws(paletteReader('fixtures/in/json')
+		.load(['fixtures/in/json/bad-color.json']))
 })
 
 test('Named palette (Sip pallette)', t => {
@@ -54,6 +46,11 @@ test('Named palette (ASE)', t => {
 		.then(palette => {
 			t.is(palette.render(), fixture)
 		})
+})
+
+test('Invalid palette (ASE)', t => {
+	t.throws(paletteReader('fixtures/in/ase')
+		.load(['fixtures/in/ase/invalid.ase']))
 })
 
 test('Photoshop palette (ASE)', t => {
