@@ -3,7 +3,7 @@ import _isEqual from 'lodash/isEqual';
 import { relative } from 'path';
 import fs from 'fs';
 import promisify from 'es6-promisify';
-import { fromBytes, fromPrecise, OCOValueEX, fromLab } from '@thebespokepixel/oco-colorvalue-ex';
+import { fromBytes, fromPrecise, OCOValueEX } from '@thebespokepixel/oco-colorvalue-ex';
 import oco from 'opencolor';
 import ase from 'ase-util';
 
@@ -98,12 +98,11 @@ function loadASE(identity) {
 							}, datum.name);
 						case 'LAB':
 							console.debug(`ASE Color (Lab): ${ datum.name }`);
-							return fromLab({
-								name: datum.name,
+							return new OCOValueEX({
 								L: datum.color.lightness,
 								a: datum.color.a,
 								b: datum.color.b
-							});
+							}, datum.name);
 						default:
 							throw new Error(`${ datum.color.model } is not a valid ASE color model`);
 					}

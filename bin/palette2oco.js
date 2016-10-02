@@ -115,12 +115,11 @@ function loadASE(identity) {
 							}, datum.name)
 						case 'LAB':
 							console.debug(`ASE Color (Lab): ${datum.name}`)
-							return _thebespokepixel_ocoColorvalueEx.fromLab({
-								name: datum.name,
+							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX({
 								L: datum.color.lightness,
 								a: datum.color.a,
 								b: datum.color.b
-							})
+							}, datum.name)
 						default:
 							throw new Error(`${datum.color.model} is not a valid ASE color model`)
 					}
