@@ -1,0 +1,46 @@
+{
+  "colors" : [
+    {
+      "red" : 0.9410084,
+      "alpha" : 1,
+      "name" : "Ku Crimson",
+      "blue" : 0,
+      "green" : 0
+    },
+    {
+      "red" : 0.9410084,
+      "alpha" : 1,
+      "name" : "Titanium Yellow",
+      "blue" : 0,
+      "green" : 0.9420211
+    },
+    {
+      "red" : 0,
+      "alpha" : 1,
+      "name" : "Lime",
+      "blue" : 0,
+      "green" : 0.9420211
+    },
+    {
+      "red" : 0,
+      "alpha" : 1,
+      "name" : "Turquoise Blue",
+      "blue" : 0.9420091,
+      "green" : 0.9420211
+    },
+    {
+      "red" : 0,
+      "alpha" : 1,
+      "name" : "Blue",
+      "blue" : 0.9420091,
+      "green" : 0
+    },
+    {
+      "red" : 240,
+      "alpha" : 255,
+      "name" : "Fuchsia",
+      "blue" : 240,
+      "green" : 0
+    }
+  ]
+}
