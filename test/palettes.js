@@ -1,6 +1,6 @@
 import test from 'ava'
 import {cat} from 'shelljs'
-import {paletteReader, paletteWriter, console} from '..'
+import {paletteReader} from '..'
 
 test('Named palette (JSON)', t => {
 	const fixture = cat('fixtures/out/json.oco').toString()

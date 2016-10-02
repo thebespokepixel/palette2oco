@@ -68,7 +68,13 @@
   },
   "xo": {
     "semicolon": false,
-    "esnext": true
+    "esnext": true,
+    "ignores": [
+      "index*.js",
+      "bin/**",
+      "lib/**",
+      "docs/**"
+    ]
   },
   "buildNumber": 183,
   "engines": {
