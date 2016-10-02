@@ -124,3 +124,5 @@ ps-test:
   Medium Warm Brown: rgb(127, 84, 40)
   Dark Warm Brown: rgb(100, 59, 18)
   Darker Warm Brown: rgb(77, 38, 0)
+  Swatch 1: rgb(0, 0, 255)
+  Swatch 2: rgb(0, 0, 141)

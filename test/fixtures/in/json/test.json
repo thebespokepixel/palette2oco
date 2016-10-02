@@ -37,10 +37,10 @@
       "green" : 0
     },
     {
-      "red" : 0.9428651,
-      "alpha" : 1,
+      "red" : 240,
+      "alpha" : 255,
       "name" : "Fuchsia",
-      "blue" : 0.9420091,
+      "blue" : 240,
       "green" : 0
     }
   ]
