@@ -107,13 +107,12 @@ function loadASE(identity) {
 							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX(datum.color.hex, datum.name)
 						case 'CMYK':
 							console.debug(`ASE Color (CMYK): ${datum.name}`)
-							return _thebespokepixel_ocoColorvalueEx.fromCMYK({
-								name: datum.name,
+							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX({
 								cyan: datum.color.c,
 								magenta: datum.color.m,
 								yellow: datum.color.y,
 								black: datum.color.k
-							})
+							}, datum.name)
 						case 'LAB':
 							console.debug(`ASE Color (Lab): ${datum.name}`)
 							return _thebespokepixel_ocoColorvalueEx.fromLab({
@@ -169,7 +168,7 @@ class Reader {
 		return key_ ? this.tree.get(key_) : this.tree.root()
 	}
 
-	transformColors(formats) {
+	transform(formats) {
 		this.tree.traverseTree('Color', color_ => {
 			const original = color_.get(0).identifiedValue.getOriginalInput()
 			color_.children = []

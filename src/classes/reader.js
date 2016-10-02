@@ -9,7 +9,7 @@ import fs from 'fs'
 
 import _ from 'lodash'
 import promisify from 'es6-promisify'
-import {OCOValueEX, fromPrecise, fromBytes, fromCMYK, fromLab} from '@thebespokepixel/oco-colorvalue-ex'
+import {OCOValueEX, fromPrecise, fromBytes, fromLab} from '@thebespokepixel/oco-colorvalue-ex'
 import oco from 'opencolor'
 import ase from 'ase-util'
 import {console} from '../index'
@@ -114,13 +114,12 @@ function loadASE(identity) {
 							return new OCOValueEX(datum.color.hex, datum.name)
 						case 'CMYK':
 							console.debug(`ASE Color (CMYK): ${datum.name}`)
-							return fromCMYK({
-								name: datum.name,
+							return new OCOValueEX({
 								cyan: datum.color.c,
 								magenta: datum.color.m,
 								yellow: datum.color.y,
 								black: datum.color.k
-							})
+							}, datum.name)
 						case 'LAB':
 							console.debug(`ASE Color (Lab): ${datum.name}`)
 							return fromLab({
@@ -187,7 +186,7 @@ export default class Reader {
 		return key_ ? this.tree.get(key_) : this.tree.root()
 	}
 
-	transformColors(formats) {
+	transform(formats) {
 		this.tree.traverseTree('Color', color_ => {
 			const original = color_.get(0).identifiedValue.getOriginalInput()
 			color_.children = []

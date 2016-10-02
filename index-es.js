@@ -3,7 +3,7 @@ import _isEqual from 'lodash/isEqual';
 import { relative } from 'path';
 import fs from 'fs';
 import promisify from 'es6-promisify';
-import { fromBytes, fromPrecise, OCOValueEX, fromLab, fromCMYK } from '@thebespokepixel/oco-colorvalue-ex';
+import { fromBytes, fromPrecise, OCOValueEX, fromLab } from '@thebespokepixel/oco-colorvalue-ex';
 import oco from 'opencolor';
 import ase from 'ase-util';
 
@@ -90,13 +90,12 @@ function loadASE(identity) {
 							return new OCOValueEX(datum.color.hex, datum.name);
 						case 'CMYK':
 							console.debug(`ASE Color (CMYK): ${ datum.name }`);
-							return fromCMYK({
-								name: datum.name,
+							return new OCOValueEX({
 								cyan: datum.color.c,
 								magenta: datum.color.m,
 								yellow: datum.color.y,
 								black: datum.color.k
-							});
+							}, datum.name);
 						case 'LAB':
 							console.debug(`ASE Color (Lab): ${ datum.name }`);
 							return fromLab({
@@ -152,7 +151,7 @@ class Reader {
 		return key_ ? this.tree.get(key_) : this.tree.root();
 	}
 
-	transformColors(formats) {
+	transform(formats) {
 		this.tree.traverseTree('Color', color_ => {
 			const original = color_.get(0).identifiedValue.getOriginalInput();
 			color_.children = [];

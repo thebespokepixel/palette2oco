@@ -1,0 +1,11 @@
+test:
+  import/
+    file/source: fixtures/in/json/test.json
+    file/type: json
+  Test:
+    Ku Crimson: hsl(0, 100%, 47%)
+    Titanium Yellow: hsl(60, 100%, 47%)
+    Lime: hsl(120, 100%, 47%)
+    Turquoise Blue: hsl(180, 100%, 47%)
+    Blue: hsl(240, 100%, 47%)
+    Fuchsia: hsl(300, 100%, 47%)

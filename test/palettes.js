@@ -11,6 +11,15 @@ test('Named palette (JSON)', t => {
 		})
 })
 
+test('Transformed palette (JSON)', t => {
+	const fixture = cat('fixtures/out/json-hsl.oco').toString()
+	return paletteReader('fixtures/in/json')
+		.load(['fixtures/in/json/test.json'])
+		.then(palette => {
+			t.is(palette.transform(['hsl']).render(), fixture)
+		})
+})
+
 test('Bad palette (JSON)', t => {
 	t.throws(paletteReader('fixtures/in/json')
 		.load(['fixtures/in/json/invalid.json']))
@@ -21,7 +30,7 @@ test('Bad color (JSON)', t => {
 		.load(['fixtures/in/json/bad-color.json']))
 })
 
-test('Named palette (Sip pallette)', t => {
+test('Named palette (Sip palette)', t => {
 	const fixture = cat('fixtures/out/sippalette.oco').toString()
 	return paletteReader('fixtures/in/sippalette')
 		.load(['fixtures/in/sippalette/test.sippalette'])
