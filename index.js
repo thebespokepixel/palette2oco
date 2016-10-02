@@ -32,26 +32,24 @@ function createIdentity(rootPath) {
 	};
 }
 
+function testPaletteJSONColor(datum, min, max) {
+	return {
+		name: typeof datum.name === 'string' && datum.name,
+		red: datum.red >= min && datum.red <= max && datum.red,
+		green: datum.green >= min && datum.green <= max && datum.green,
+		blue: datum.blue >= min && datum.blue <= max && datum.blue,
+		alpha: datum.alpha >= min && datum.alpha <= max && datum.alpha
+	};
+}
+
 function isPaletteJSON(datum) {
 	const tests = {
 		palette: {
 			name: typeof datum.name === 'string' && datum.name,
 			colors: Array.isArray(datum.colors) && datum.colors
 		},
-		rgba: {
-			name: typeof datum.name === 'string' && datum.name,
-			red: datum.red >= 0.0 && datum.red <= 1.0 && datum.red,
-			green: datum.green >= 0.0 && datum.green <= 1.0 && datum.green,
-			blue: datum.blue >= 0.0 && datum.blue <= 1.0 && datum.blue,
-			alpha: datum.alpha >= 0.0 && datum.alpha <= 1.0 && datum.alpha
-		},
-		rgbaInteger: {
-			name: typeof datum.name === 'string' && datum.name,
-			red: datum.red >= 0 && datum.red <= 255 && datum.red,
-			green: datum.green >= 0 && datum.green <= 255 && datum.green,
-			blue: datum.blue >= 0 && datum.blue <= 255 && datum.blue,
-			alpha: datum.alpha >= 0 && datum.alpha <= 255 && datum.alpha
-		}
+		rgba: testPaletteJSONColor(datum, 0.0, 1.0),
+		rgbaInteger: testPaletteJSONColor(datum, 0, 255)
 	};
 	return {
 		isPalette: _isEqual(datum, tests.palette),
@@ -92,8 +90,9 @@ function loadASE(identity) {
 			switch (datum.type) {
 				case 'color':
 					switch (datum.color.model) {
+						case 'Gray':
 						case 'RGB':
-							console.debug(`ASE Color (RGB): ${ datum.name }`);
+							console.debug(`ASE Color (RGB/Grayscale): ${ datum.name }`);
 							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX(datum.color.hex, datum.name);
 						case 'CMYK':
 							console.debug(`ASE Color (CMYK): ${ datum.name }`);
@@ -112,9 +111,6 @@ function loadASE(identity) {
 								a: datum.color.a,
 								b: datum.color.b
 							});
-						case 'Gray':
-							console.debug(`ASE Color (Gray): ${ datum.name }`);
-							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX(datum.color.hex, datum.name);
 						default:
 							throw new Error(`${ datum.color.model } is not a valid ASE color model`);
 					}
