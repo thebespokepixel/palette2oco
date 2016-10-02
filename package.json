@@ -11,7 +11,7 @@
     "code-climate": "nyc report --reporter=text-lcov | codeclimate-test-reporter",
     "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
     "generate-test-fixtures": "scripts/generate-test-fixtures",
-    "clean": "gulp clean"
+    "clean": "gulp clean",
     "postpublish": "greenkeeper-postpublish"
   },
   "files": [
