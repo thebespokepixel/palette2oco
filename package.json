@@ -15,6 +15,7 @@
     "postpublish": "greenkeeper-postpublish"
   },
   "files": [
+    "bin/",
     "index-es.js",
     "index.js"
   ],
