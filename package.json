@@ -77,7 +77,7 @@
       "docs/**"
     ]
   },
-  "buildNumber": 0,
+  "buildNumber": 6,
   "engines": {
     "node": ">=4.0 <7.0"
   },
