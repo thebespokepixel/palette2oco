@@ -23,6 +23,8 @@ var promisify = _interopDefault(require('es6-promisify'))
 var _thebespokepixel_ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex')
 var oco = _interopDefault(require('opencolor'))
 var ase = _interopDefault(require('ase-util'))
+var _kebabCase = _interopDefault(require('lodash/kebabCase'))
+var _merge = _interopDefault(require('lodash/merge'))
 
 const loader = promisify(fs.readFile)
 
@@ -199,9 +201,9 @@ class Reader {
 
 const writeFile = promisify(fs.writeFile)
 
-function writer(destination, oco) {
-	console.debug(`Writing oco file to ${destination}`)
-	return writeFile(destination, oco)
+function writer(destination, contents) {
+	console.debug(`Writing file to ${destination}`)
+	return writeFile(destination, contents)
 }
 
 const console = verbosity.createConsole({

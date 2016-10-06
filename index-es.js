@@ -6,6 +6,8 @@ import promisify from 'es6-promisify';
 import { fromBytes, fromPrecise, OCOValueEX } from '@thebespokepixel/oco-colorvalue-ex';
 import oco from 'opencolor';
 import ase from 'ase-util';
+import _kebabCase from 'lodash/kebabCase';
+import _merge from 'lodash/merge';
 
 const loader = promisify(fs.readFile);
 
@@ -182,9 +184,44 @@ class Reader {
 
 const writeFile = promisify(fs.writeFile);
 
-function writer(destination, oco) {
-  console.debug(`Writing oco file to ${ destination }`);
-  return writeFile(destination, oco);
+function writer(destination, contents) {
+  console.debug(`Writing file to ${ destination }`);
+  return writeFile(destination, contents);
+}
+
+function oco2Object(oco) {
+	const output = {};
+	const recurseForPath = (entry, tree) => {
+		if (entry.name === 'Root') {
+			return tree;
+		}
+		return recurseForPath(entry.parent, {
+			[entry.name]: tree
+		});
+	};
+
+	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+		const color = entry.type === 'Color' ? entry : entry.resolved();
+		_merge(output, recurseForPath(entry.parent, {
+			[entry.name]: new OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
+		}));
+	});
+	return output;
+}
+
+function oco2Vars(oco, prefix = '') {
+	let output = '';
+	const recurseForPath = entry => {
+		if (entry.name === 'Root') {
+			return '';
+		}
+		return `${ recurseForPath(entry.parent) } ${ entry.name }`;
+	};
+	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+		const color = entry.type === 'Color' ? entry : entry.resolved();
+		output += `${ prefix }${ _kebabCase(recurseForPath(entry)) } = ${ color.get(0).identifiedValue.toString('hex') }\n`;
+	});
+	return output;
 }
 
 const console = createConsole({ outStream: process.stderr });
@@ -197,4 +234,4 @@ function paletteWriter(palette, destination) {
   return writer(palette, destination);
 }
 
-export { console, paletteReader, paletteWriter };
+export { console, paletteReader, paletteWriter, oco2Object, oco2Vars };
