@@ -35,7 +35,7 @@ export function oco2Vars(oco, prefix = '') {
 	}
 	oco.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved()
-		output += `${prefix}${_.kebabCase(recurseForPath(entry))} = ${color.get(0).identifiedValue.toString('hex')}\n`
+		output += `${prefix}${_.kebabCase(recurseForPath(entry))} = ${color.get(0).identifiedValue.toString('rgb')}\n`
 	})
 	return output
 }

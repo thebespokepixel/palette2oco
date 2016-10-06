@@ -6,6 +6,6 @@ test:
     Ku Crimson: rgb(240, 0, 0)
     Titanium Yellow: rgb(240, 240, 0)
     Lime: rgb(0, 240, 0)
-    Turquoise Blue: rgb(0, 240, 240)
+    Turquoise Blue: rgba(0, 240, 240, 0.6)
     Blue: rgb(0, 0, 240)
     Fuchsia: rgb(240, 0, 240)

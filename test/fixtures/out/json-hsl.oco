@@ -6,6 +6,6 @@ test:
     Ku Crimson: hsl(0, 100%, 47%)
     Titanium Yellow: hsl(60, 100%, 47%)
     Lime: hsl(120, 100%, 47%)
-    Turquoise Blue: hsl(180, 100%, 47%)
+    Turquoise Blue: hsla(180, 100%, 47%, 0.6)
     Blue: hsl(240, 100%, 47%)
     Fuchsia: hsl(300, 100%, 47%)

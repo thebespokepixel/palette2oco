@@ -24,7 +24,7 @@
     },
     {
       "red" : 0,
-      "alpha" : 1,
+      "alpha" : 0.6,
       "name" : "Turquoise Blue",
       "blue" : 0.9420091,
       "green" : 0.9420211

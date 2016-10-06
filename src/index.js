@@ -17,6 +17,6 @@ export function paletteReader(pathArray) {
 	return new Reader(pathArray)
 }
 
-export function paletteWriter(palette, destination) {
-	return writer(palette, destination)
+export function paletteWriter(destination, palette) {
+	return writer(destination, palette)
 }

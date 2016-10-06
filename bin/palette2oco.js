@@ -214,8 +214,8 @@ function paletteReader(pathArray) {
 	return new Reader(pathArray)
 }
 
-function paletteWriter(palette, destination) {
-	return writer(palette, destination)
+function paletteWriter(destination, palette) {
+	return writer(destination, palette)
 }
 
 const clr = trucolor.simplePalette()

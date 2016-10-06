@@ -219,7 +219,7 @@ function oco2Vars(oco, prefix = '') {
 	};
 	oco.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved();
-		output += `${ prefix }${ _kebabCase(recurseForPath(entry)) } = ${ color.get(0).identifiedValue.toString('hex') }\n`;
+		output += `${ prefix }${ _kebabCase(recurseForPath(entry)) } = ${ color.get(0).identifiedValue.toString('rgb') }\n`;
 	});
 	return output;
 }
@@ -230,8 +230,8 @@ function paletteReader(pathArray) {
   return new Reader(pathArray);
 }
 
-function paletteWriter(palette, destination) {
-  return writer(palette, destination);
+function paletteWriter(destination, palette) {
+  return writer(destination, palette);
 }
 
 export { console, paletteReader, paletteWriter, oco2Object, oco2Vars };
