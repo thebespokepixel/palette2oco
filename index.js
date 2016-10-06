@@ -12,6 +12,8 @@ var promisify = _interopDefault(require('es6-promisify'));
 var _thebespokepixel_ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex');
 var oco = _interopDefault(require('opencolor'));
 var ase = _interopDefault(require('ase-util'));
+var _kebabCase = _interopDefault(require('lodash/kebabCase'));
+var _merge = _interopDefault(require('lodash/merge'));
 
 const loader = promisify(fs.readFile);
 
@@ -188,9 +190,46 @@ class Reader {
 
 const writeFile = promisify(fs.writeFile);
 
-function writer(destination, oco) {
-  console.debug(`Writing oco file to ${ destination }`);
-  return writeFile(destination, oco);
+function writer(destination, contents) {
+  console.debug(`Writing file to ${ destination }`);
+  return writeFile(destination, contents);
+}
+
+function oco2Object(oco) {
+	const output = {};
+	const recurseForPath = (entry, tree) => {
+		if (entry.name === 'Root') {
+			return tree;
+		}
+		return recurseForPath(entry.parent, {
+			[entry.name]: tree
+		});
+	};
+
+	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+		const color = entry.type === 'Color' ? entry : entry.resolved();
+		_merge(output, recurseForPath(entry.parent, {
+			[entry.name]: new _thebespokepixel_ocoColorvalueEx.OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
+		}));
+	});
+	return output;
+}
+
+function oco2Vars(oco) {
+	let prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+	let output = '';
+	const recurseForPath = entry => {
+		if (entry.name === 'Root') {
+			return '';
+		}
+		return `${ recurseForPath(entry.parent) } ${ entry.name }`;
+	};
+	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+		const color = entry.type === 'Color' ? entry : entry.resolved();
+		output += `${ prefix }${ _kebabCase(recurseForPath(entry)) } = ${ color.get(0).identifiedValue.toString('hex') }\n`;
+	});
+	return output;
 }
 
 const console = verbosity.createConsole({ outStream: process.stderr });
@@ -206,3 +245,5 @@ function paletteWriter(palette, destination) {
 exports.console = console;
 exports.paletteReader = paletteReader;
 exports.paletteWriter = paletteWriter;
+exports.oco2Object = oco2Object;
+exports.oco2Vars = oco2Vars;

@@ -9,6 +9,8 @@ import {createConsole} from 'verbosity'
 import Reader from './classes/reader'
 import writer from './writer'
 
+export * from './utils'
+
 export const console = createConsole({outStream: process.stderr})
 
 export function paletteReader(pathArray) {
