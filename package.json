@@ -58,7 +58,7 @@
     "yargs": "^6.0.0"
   },
   "devDependencies": {
-    "@thebespokepixel/cordial": "^0.16.2",
+    "@thebespokepixel/cordial": "^0.17.9",
     "ava": "^0.16.0",
     "codeclimate-test-reporter": "^0.4.0",
     "greenkeeper-postpublish": "^1.0.1",
