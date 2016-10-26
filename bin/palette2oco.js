@@ -5,26 +5,26 @@ function _interopDefault(ex) {
 	return (ex && (typeof ex === 'object') && 'default' in ex) ? ex.default : ex
 }
 
-var _initial = _interopDefault(require('lodash/initial'))
-var _tail = _interopDefault(require('lodash/tail'))
-var path = require('path')
-var truwrap = _interopDefault(require('truwrap'))
-var commonTags = require('common-tags')
-var _thebespokepixel_string = require('@thebespokepixel/string')
-var yargs = _interopDefault(require('yargs'))
-var globby = _interopDefault(require('globby'))
-var readPkg = _interopDefault(require('read-pkg'))
-var updateNotifier = _interopDefault(require('update-notifier'))
-var trucolor = _interopDefault(require('trucolor'))
-var verbosity = require('verbosity')
-var _isEqual = _interopDefault(require('lodash/isEqual'))
-var fs = _interopDefault(require('fs'))
-var promisify = _interopDefault(require('es6-promisify'))
-var _thebespokepixel_ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex')
-var oco = _interopDefault(require('opencolor'))
-var ase = _interopDefault(require('ase-util'))
-var _kebabCase = _interopDefault(require('lodash/kebabCase'))
-var _merge = _interopDefault(require('lodash/merge'))
+const _initial = _interopDefault(require('lodash/initial'))
+const _tail = _interopDefault(require('lodash/tail'))
+const path = require('path')
+const truwrap = _interopDefault(require('truwrap'))
+const commonTags = require('common-tags')
+const _thebespokepixel_string = require('@thebespokepixel/string')
+const yargs = _interopDefault(require('yargs'))
+const globby = _interopDefault(require('globby'))
+const readPkg = _interopDefault(require('read-pkg'))
+const updateNotifier = _interopDefault(require('update-notifier'))
+const trucolor = _interopDefault(require('trucolor'))
+const verbosity = require('verbosity')
+const _isEqual = _interopDefault(require('lodash/isEqual'))
+const fs = _interopDefault(require('fs'))
+const promisify = _interopDefault(require('es6-promisify'))
+const _thebespokepixel_ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex')
+const oco = _interopDefault(require('opencolor'))
+const ase = _interopDefault(require('ase-util'))
+const _kebabCase = _interopDefault(require('lodash/kebabCase'))
+const _merge = _interopDefault(require('lodash/merge'))
 
 const loader = promisify(fs.readFile)
 
@@ -34,10 +34,10 @@ const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`)
 const fileMatch = new RegExp(`(.*/)(.+?).(${supportedTypes.join('|')})$`)
 
 function createIdentity(rootPath) {
-	return function (path) {
-		const address = path.replace(rootPath, '').match(fileMatch)
+	return function (path$$1) {
+		const address = path$$1.replace(rootPath, '').match(fileMatch)
 		return {
-			source: path,
+			source: path$$1,
 			name: address[2],
 			path: address[1].replace(/^\//, '').replace(/\//g, '.'),
 			type: address[3]
@@ -194,8 +194,8 @@ class Reader {
 		}).then(entry => this.tree.set(`${identity.path}${identity.name}`, entry)))).then(() => this)
 	}
 
-	render(path) {
-		return oco.render(this.pick(path))
+	render(path$$1) {
+		return oco.render(this.pick(path$$1))
 	}
 }
 
@@ -344,3 +344,4 @@ if (argv._.length > 1) {
 	console.error('palette2oco needs at least a source and a destination.')
 	process.exit(1)
 }
+

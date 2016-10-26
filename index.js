@@ -23,10 +23,10 @@ const fileFilter = new RegExp(`\.(${ supportedTypes.join('|') })$`);
 const fileMatch = new RegExp(`(.*\/)(.+?).(${ supportedTypes.join('|') })$`);
 
 function createIdentity(rootPath) {
-	return function (path) {
-		const address = path.replace(rootPath, '').match(fileMatch);
+	return function (path$$1) {
+		const address = path$$1.replace(rootPath, '').match(fileMatch);
 		return {
-			source: path,
+			source: path$$1,
 			name: address[2],
 			path: address[1].replace(/^\//, '').replace(/\//g, '.'),
 			type: address[3]
@@ -183,8 +183,8 @@ class Reader {
 		}).then(entry => this.tree.set(`${ identity.path }${ identity.name }`, entry)))).then(() => this);
 	}
 
-	render(path) {
-		return oco.render(this.pick(path));
+	render(path$$1) {
+		return oco.render(this.pick(path$$1));
 	}
 }
 
@@ -195,7 +195,7 @@ function writer(destination, contents) {
   return writeFile(destination, contents);
 }
 
-function oco2Object(oco) {
+function oco2Object(oco$$1) {
 	const output = {};
 	const recurseForPath = (entry, tree) => {
 		if (entry.name === 'Root') {
@@ -206,7 +206,7 @@ function oco2Object(oco) {
 		});
 	};
 
-	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+	oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved();
 		_merge(output, recurseForPath(entry.parent, {
 			[entry.name]: new _thebespokepixel_ocoColorvalueEx.OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
@@ -215,7 +215,7 @@ function oco2Object(oco) {
 	return output;
 }
 
-function oco2Vars(oco) {
+function oco2Vars(oco$$1) {
 	let prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
 	let output = '';
@@ -225,7 +225,7 @@ function oco2Vars(oco) {
 		}
 		return `${ recurseForPath(entry.parent) } ${ entry.name }`;
 	};
-	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+	oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved();
 		output += `${ prefix }${ _kebabCase(recurseForPath(entry)) } = ${ color.get(0).identifiedValue.toString('rgb') }\n`;
 	});

@@ -3,7 +3,7 @@ import _isEqual from 'lodash/isEqual';
 import { relative } from 'path';
 import fs from 'fs';
 import promisify from 'es6-promisify';
-import { fromBytes, fromPrecise, OCOValueEX } from '@thebespokepixel/oco-colorvalue-ex';
+import { OCOValueEX, fromBytes, fromPrecise } from '@thebespokepixel/oco-colorvalue-ex';
 import oco from 'opencolor';
 import ase from 'ase-util';
 import _kebabCase from 'lodash/kebabCase';
@@ -17,10 +17,10 @@ const fileFilter = new RegExp(`\.(${ supportedTypes.join('|') })$`);
 const fileMatch = new RegExp(`(.*\/)(.+?).(${ supportedTypes.join('|') })$`);
 
 function createIdentity(rootPath) {
-	return function (path) {
-		const address = path.replace(rootPath, '').match(fileMatch);
+	return function (path$$1) {
+		const address = path$$1.replace(rootPath, '').match(fileMatch);
 		return {
-			source: path,
+			source: path$$1,
 			name: address[2],
 			path: address[1].replace(/^\//, '').replace(/\//g, '.'),
 			type: address[3]
@@ -177,8 +177,8 @@ class Reader {
 		}).then(entry => this.tree.set(`${ identity.path }${ identity.name }`, entry)))).then(() => this);
 	}
 
-	render(path) {
-		return oco.render(this.pick(path));
+	render(path$$1) {
+		return oco.render(this.pick(path$$1));
 	}
 }
 
@@ -189,7 +189,7 @@ function writer(destination, contents) {
   return writeFile(destination, contents);
 }
 
-function oco2Object(oco) {
+function oco2Object(oco$$1) {
 	const output = {};
 	const recurseForPath = (entry, tree) => {
 		if (entry.name === 'Root') {
@@ -200,7 +200,7 @@ function oco2Object(oco) {
 		});
 	};
 
-	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+	oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved();
 		_merge(output, recurseForPath(entry.parent, {
 			[entry.name]: new OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
@@ -209,7 +209,7 @@ function oco2Object(oco) {
 	return output;
 }
 
-function oco2Vars(oco, prefix = '') {
+function oco2Vars(oco$$1, prefix = '') {
 	let output = '';
 	const recurseForPath = entry => {
 		if (entry.name === 'Root') {
@@ -217,7 +217,7 @@ function oco2Vars(oco, prefix = '') {
 		}
 		return `${ recurseForPath(entry.parent) } ${ entry.name }`;
 	};
-	oco.tree.traverseTree(['Color', 'Reference'], entry => {
+	oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved();
 		output += `${ prefix }${ _kebabCase(recurseForPath(entry)) } = ${ color.get(0).identifiedValue.toString('rgb') }\n`;
 	});
