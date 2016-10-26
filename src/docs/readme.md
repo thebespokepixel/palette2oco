@@ -1,6 +1,6 @@
-# oco-colorvalue-ex 
+# palette2oco converter
 
-> Extended color features for Open Color's core ColorValue object.
+> Load or convert files or directories of various palette formats to structured Open Color data or .oco files.
 
 ${badges}
 
@@ -9,6 +9,6 @@ ${badges}
 ${usage}
 
 ## Documentation
-Full documentation can be found at [https://markgriffiths.github.io/oco-colorvalue-ex/][1]
+Full documentation can be found at [https://markgriffiths.github.io/palette2oco/][1]
 
-[1]: https://markgriffiths.github.io/oco-colorvalue-ex/
+[1]: https://markgriffiths.github.io/palette2oco/

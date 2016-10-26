@@ -1,8 +1,41 @@
-#### Open Color's ColorValue object - Extended
+#### Load structured palette data from various tools into Open Color format.
 
-Enables a much wider range of color spaces, conversion, and esoteric customisation in the server, build tool or preprocessor. Supports:
+```js
+import {paletteReader, paletteWriter, console} from 'palette2oco'
 
-- Handling a wider range or color notations, such as those found in JSON and native Objects and Arrays.
-- Uses my port of Tinycolor, es-tinycolor for tighter control of minimisation and tree-shaking.
-- Add supports for L*ab, CMYK, RGBA Bytes
-- Generate aesthetic palettes, or describe dynamic scaling along curves from oco files with Chroma support.
+paletteReader(pathRoot).load(pathArray)
+  .then(palette => palette.render(ocoPath))
+  .then(oco => paletteWriter(destinationFile, oco))
+  .catch(err => {
+    console.error(err)
+  })
+
+```
+
+#### Convert palette data from a variety of sources into Open Color .oco format.
+
+Allows structured directories of pallette data to be converted into nested oco palette data.
+
+##### Formats supported:
+
+- Sip (http://sipapp.io): Supports .sippalette and .json exports.
+
+- Abobe Swatch Exchange (ASE): Full support of RGB, CMYK and Lab colorspaces.
+
+- Vanilla JSON: File signature must match the following...
+
+```js
+{
+  "name" : "Palette name",
+  "colors" : [
+    {
+      name: "Color name",
+      red: (0.0 - 1.0 | 0 - 255)
+      green: (0.0 - 1.0 | 0 - 255)
+      blue: (0.0 - 1.0 | 0 - 255)
+      alpha: (0.0 - 1.0 | 0 - 255)
+    }
+    ...
+  ]
+}
+```
