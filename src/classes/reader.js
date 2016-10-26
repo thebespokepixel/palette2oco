@@ -23,8 +23,8 @@ const supportedTypes = [
 	'ase'
 ]
 
-const fileFilter = new RegExp(`\.(${supportedTypes.join('|')})$`)
-const fileMatch = new RegExp(`(.*\/)(.+?).(${supportedTypes.join('|')})$`)
+const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`)
+const fileMatch = new RegExp(`(.*/)(.+?).(${supportedTypes.join('|')})$`)
 
 function createIdentity(rootPath) {
 	return function (path) {

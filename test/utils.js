@@ -7,10 +7,10 @@ const objectTemplate = {
 		Test: {
 			'Ku Crimson': new OCOValueEX('rgb(240, 0, 0)', 'Ku Crimson'),
 			'Titanium Yellow': new OCOValueEX('rgb(240, 240, 0)', 'Titanium Yellow'),
-			'Lime': new OCOValueEX('rgb(0, 240, 0)', 'Lime'),
+			Lime: new OCOValueEX('rgb(0, 240, 0)', 'Lime'),
 			'Turquoise Blue': new OCOValueEX('rgba(0, 240, 240, 0.6)', 'Turquoise Blue'),
-			'Blue': new OCOValueEX('rgb(0, 0, 240)', 'Blue'),
-			'Fuchsia': new OCOValueEX('rgb(240, 0, 240)', 'Fuchsia')
+			Blue: new OCOValueEX('rgb(0, 0, 240)', 'Blue'),
+			Fuchsia: new OCOValueEX('rgb(240, 0, 240)', 'Fuchsia')
 		}
 	}
 }
@@ -23,8 +23,8 @@ test-test-blue = rgb(0, 0, 240)
 test-test-fuchsia = rgb(240, 0, 240)
 `
 
-test('Named palette (JSON) to Object', t => {
-	return paletteReader('fixtures/in/json')
+test('Named palette (JSON) to Object', async t => {
+	await paletteReader('fixtures/in/json')
 		.load(['fixtures/in/json/test.json'])
 		.then(oco2Object)
 		.then(palette => {
@@ -32,8 +32,8 @@ test('Named palette (JSON) to Object', t => {
 		})
 })
 
-test('Named palette (JSON) to Vars', t => {
-	return paletteReader('fixtures/in/json')
+test('Named palette (JSON) to Vars', async t => {
+	await paletteReader('fixtures/in/json')
 		.load(['fixtures/in/json/test.json'])
 		.then(oco2Vars)
 		.then(palette => {
