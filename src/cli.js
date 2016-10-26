@@ -1,12 +1,7 @@
 /* ─────────────────────────╮
  │ @thebespokepixel/xo-tidy │ CLI Utility
- ╰──────────────────────────┴───────────────────────────────────────────────────*/
-/**
- * Allow xo-tidy to run as a command line tool.
- * @module xo-tidy/cli
- * @see module:xo-tidy
- */
-/* eslint xo/no-process-exit:0, no-process-exit:0 */
+ ╰──────────────────────────┴────────────────────────────────────────────────── */
+/* eslint unicorn/no-process-exit:0 */
 
 import {resolve} from 'path'
 import _ from 'lodash'

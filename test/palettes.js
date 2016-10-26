@@ -2,69 +2,69 @@ import test from 'ava'
 import {cat} from 'shelljs'
 import {paletteReader} from '..'
 
-test('Named palette (JSON)', t => {
+test('Named palette (JSON)', async t => {
 	const fixture = cat('fixtures/out/json.oco').toString()
-	return paletteReader('fixtures/in/json')
+	await paletteReader('fixtures/in/json')
 		.load(['fixtures/in/json/test.json'])
 		.then(palette => {
 			t.is(palette.render(), fixture)
 		})
 })
 
-test('Transformed palette (JSON)', t => {
+test('Transformed palette (JSON)', async t => {
 	const fixture = cat('fixtures/out/json-hsl.oco').toString()
-	return paletteReader('fixtures/in/json')
+	await paletteReader('fixtures/in/json')
 		.load(['fixtures/in/json/test.json'])
 		.then(palette => {
 			t.is(palette.transform(['hsl']).render(), fixture)
 		})
 })
 
-test('Bad palette (JSON)', t => {
-	t.throws(paletteReader('fixtures/in/json')
+test('Bad palette (JSON)', async t => {
+	await t.throws(paletteReader('fixtures/in/json')
 		.load(['fixtures/in/json/invalid.json']))
 })
 
-test('Bad color (JSON)', t => {
-	t.throws(paletteReader('fixtures/in/json')
+test('Bad color (JSON)', async t => {
+	await t.throws(paletteReader('fixtures/in/json')
 		.load(['fixtures/in/json/bad-color.json']))
 })
 
-test('Named palette (Sip palette)', t => {
+test('Named palette (Sip palette)', async t => {
 	const fixture = cat('fixtures/out/sippalette.oco').toString()
-	return paletteReader('fixtures/in/sippalette')
+	await paletteReader('fixtures/in/sippalette')
 		.load(['fixtures/in/sippalette/test.sippalette'])
 		.then(palette => {
 			t.is(palette.render(), fixture)
 		})
 })
 
-test('Named palette (OCO)', t => {
+test('Named palette (OCO)', async t => {
 	const fixture = cat('fixtures/out/oco.oco').toString()
-	return paletteReader('fixtures/in/oco')
+	await paletteReader('fixtures/in/oco')
 		.load(['fixtures/in/oco/test.oco'])
 		.then(palette => {
 			t.is(palette.render(), fixture)
 		})
 })
 
-test('Named palette (ASE)', t => {
+test('Named palette (ASE)', async t => {
 	const fixture = cat('fixtures/out/ase.oco').toString()
-	return paletteReader('fixtures/in/ase')
+	await paletteReader('fixtures/in/ase')
 		.load(['fixtures/in/ase/test.ase'])
 		.then(palette => {
 			t.is(palette.render(), fixture)
 		})
 })
 
-test('Invalid palette (ASE)', t => {
+test('Invalid palette (ASE)', async t => {
 	t.throws(paletteReader('fixtures/in/ase')
 		.load(['fixtures/in/ase/invalid.ase']))
 })
 
-test('Photoshop palette (ASE)', t => {
+test('Photoshop palette (ASE)', async t => {
 	const fixture = cat('fixtures/out/ps-test.oco').toString()
-	return paletteReader('fixtures/in/ase')
+	await paletteReader('fixtures/in/ase')
 		.load(['fixtures/in/ase/ps-test.ase'])
 		.then(palette => {
 			t.is(palette.render(), fixture)

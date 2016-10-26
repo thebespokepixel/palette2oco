@@ -23,8 +23,8 @@ const supportedTypes = [
 	'ase'
 ]
 
-const fileFilter = new RegExp(`\.(${supportedTypes.join('|')})$`)
-const fileMatch = new RegExp(`(.*\/)(.+?).(${supportedTypes.join('|')})$`)
+const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`)
+const fileMatch = new RegExp(`(.*/)(.+?).(${supportedTypes.join('|')})$`)
 
 function createIdentity(rootPath) {
 	return function (path) {
@@ -185,6 +185,12 @@ export default class Reader {
 		return key_ ? this.tree.get(key_) : this.tree.root()
 	}
 
+	/**
+	 * Transform the internal color palette to a range of additional formats.
+	 * @private
+	 * @param  {string[]} formats - An array of color formats to add to the palette.
+	 * @return {Reader} The Reader instance.
+	 */
 	transform(formats) {
 		this.tree.traverseTree('Color', color_ => {
 			const original = color_.get(0).identifiedValue.getOriginalInput()
@@ -204,6 +210,12 @@ export default class Reader {
 		return this
 	}
 
+	/**
+	 * Load palette data from an array of paths.
+	 * @private
+	 * @param  {string[]} pathArray The array of paths to load.
+	 * @return {Promise} A Promise that resolves with this instance when loaded.
+	 */
 	load(pathArray) {
 		return Promise.all(pathArray
 			.filter(file => file.match(fileFilter))

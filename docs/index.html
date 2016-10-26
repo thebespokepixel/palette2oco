@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>@thebespokepixel/palette2oco 0.1.4 | Documentation</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="assets/css/ace.min.css" rel="stylesheet">
+  <link href="assets/fonts/TypoPRO-Hack/TypoPRO-Hack.css" type="text/css" rel="stylesheet" />
+  <link href="assets/fonts/TypoPRO-FiraSans/TypoPRO-FiraSans.css" type="text/css" rel="stylesheet" />
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body class="m0 documentation">
+  <div class="flex">
+    <div class="flex-column fixed top-0 bottom-0 px2 pt2 max-height-100 sidebar">
+      <h3 class="m0 no-anchor">@thebespokepixel/palette2oco</h3>
+      <div class="mb1"><code>v0.1.4</code></div>
+      <input
+        placeholder="Filter"
+        id="filter-input"
+        class="col12 block input"
+        type="text" />
+      <div id="toc">
+        <ul class="list-reset h5 py1-ul">
+          
+            
+            <li><a
+              href="#usage"
+              class="h5 bold black caps">
+              Usage
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#api"
+              class="h5 bold black caps">
+              API
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#palettereader"
+              class="">
+              paletteReader
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
+              href="#palettewriter"
+              class="">
+              paletteWriter
+              
+            </a>
+            
+            </li>
+          
+        </ul>
+      </div>
+      <div class="badges"><p><a href="https://github.com/MarkGriffiths/palette2oco" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> <a href="https://travis-ci.org/MarkGriffiths/palette2oco" title="Travis"><img src="https://img.shields.io/travis/MarkGriffiths/palette2oco.svg?branch=master&#x26;style=flat" alt="Travis"></a> <br>
+</p>
+ 
+<p><a href="https://codeclimate.com/github/MarkGriffiths/palette2oco" title="Code-climate"><img src="https://codeclimate.com/github/MarkGriffiths/palette2oco/badges/gpa.svg?style=flat" alt="Code-climate"></a> <a href="https://codeclimate.com/github/MarkGriffiths/palette2oco/coverage" title="Coverage"><img src="https://codeclimate.com/github/MarkGriffiths/palette2oco/badges/coverage.svg?style=flat" alt="Coverage"></a> <br>
+</p>
+ 
+<p><a href="https://david-dm.org/MarkGriffiths/palette2oco/master" title="David"><img src="https://img.shields.io/david/MarkGriffiths/palette2oco.svg?branch=master&#x26;style=flat" alt="David"></a> <br>
+</p>
+ 
+<br>
+
+</div>
+      <div class="mt1 h6 quiet">
+        <a href="http://documentation.js.org/reading-documentation.html">Need help reading this?</a>
+      </div>
+    </div>
+    <div class="flex-column px2 sidespace">
+      <h3 class="m0 no-anchor">@thebespokepixel/palette2oco</h3>
+    </div>
+    <div class="flex-auto px2 pt1">
+      
+        
+          <div class="keyline-top-not py1"><section class="py0 px2 clearfix note">
+	<h3 id="usage" class="m0">
+		Usage
+	</h3>
+	
+	
+		<h4>Load structured palette data from various tools into Open Color format.</h4>
+<pre><code class="language-js">import {paletteReader, paletteWriter, console} from 'palette2oco'
+
+paletteReader(pathRoot).load(pathArray)
+  .then(palette => palette.render(ocoPath))
+  .then(oco => paletteWriter(destinationFile, oco))
+  .catch(err => {
+    console.error(err)
+  })
+</code></pre>
+<h4>Convert palette data from a variety of sources into Open Color .oco format.</h4>
+<p>Allows structured directories of pallette data to be converted into nested oco palette data.</p>
+<h5>Formats supported:</h5>
+<ul>
+<li>
+<p>Sip (<a href="http://sipapp.io">http://sipapp.io</a>): Supports .sippalette and .json exports.</p>
+</li>
+<li>
+<p>Abobe Swatch Exchange (ASE): Full support of RGB, CMYK and Lab colorspaces.</p>
+</li>
+<li>
+<p>Vanilla JSON: File signature must match the following...</p>
+</li>
+</ul>
+<pre><code class="language-js">{
+  "name" : "Palette name",
+  "colors" : [
+    {
+      name: "Color name",
+      red: (0.0 - 1.0 | 0 - 255)
+      green: (0.0 - 1.0 | 0 - 255)
+      blue: (0.0 - 1.0 | 0 - 255)
+      alpha: (0.0 - 1.0 | 0 - 255)
+    }
+    ...
+  ]
+}
+</code></pre>
+
+	
+</section>
+</div>
+        
+      
+        
+          <div class="keyline-top-not py1"><section class="py0 px2 clearfix note">
+	<h3 id="api" class="m0">
+		API
+	</h3>
+	
+		
+
+	
+	
+</section>
+</div>
+        
+      
+        
+          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+
+  
+  <div class="clearfix">
+    <h3 class="left m0 panel-title" id="palettereader">
+      paletteReader  <span>→ Reader</span>
+    </h3>
+    
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/2fe1945f6c905208aa2c6dafdeb0176439ec744e/src/index.js#L21-L23">src/index.js</a>
+    
+  </div>
+  
+
+  <p>Read source data from an array of paths and return a Reader instance.</p>
+
+  
+  <div class="pre p1 bg-darken-1 mt0 signature">paletteReader(pathArray: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>) → Reader</div>
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Parameters</div>
+    <div class="prose">
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">pathArray</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code> An Array of paths to load.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class="py1 quiet mt1 prose-big">Returns</div>
+      <code>Reader</code>:
+        The Reader instance.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      
+        
+          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+
+  
+  <div class="clearfix">
+    <h3 class="left m0 panel-title" id="palettewriter">
+      paletteWriter  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>
+    </h3>
+    
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/2fe1945f6c905208aa2c6dafdeb0176439ec744e/src/index.js#L31-L33">src/index.js</a>
+    
+  </div>
+  
+
+  <p>Write an Open Color format palette to the destination.</p>
+
+  
+  <div class="pre p1 bg-darken-1 mt0 signature">paletteWriter(destination: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, palette: OpenColor) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class="py1 quiet mt1 prose-big">Parameters</div>
+    <div class="prose">
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">destination</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> The destination path.
+
+          </div>
+          
+        </div>
+      
+        <div class="space-bottom0">
+          <div>
+            <span class="code bold">palette</span> <code class="quiet">(OpenColor)</code> The Open Color palette data.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class="py1 quiet mt1 prose-big">Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        A promise that resoves when file is saved.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      
+    </div>
+  </div>
+  <script src="assets/js/anchor.min.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
