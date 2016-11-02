@@ -8,7 +8,7 @@ function _interopDefault(ex) {
 const _initial = _interopDefault(require('lodash/initial'))
 const _tail = _interopDefault(require('lodash/tail'))
 const path = require('path')
-const truwrap = _interopDefault(require('truwrap'))
+const truwrap = require('truwrap')
 const commonTags = require('common-tags')
 const _thebespokepixel_string = require('@thebespokepixel/string')
 const yargs = _interopDefault(require('yargs'))
@@ -224,7 +224,7 @@ const clr = trucolor.simple({
 
 const _package = readPkg.sync(path.resolve(__dirname, '..'))
 
-const renderer = truwrap({
+const renderer = truwrap.truwrap({
 	outStream: process.stderr
 })
 

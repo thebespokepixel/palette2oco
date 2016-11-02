@@ -5,7 +5,7 @@
 
 import {resolve} from 'path'
 import _ from 'lodash'
-import truwrap from 'truwrap'
+import {truwrap} from 'truwrap'
 import {stripIndent, TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
 import {box} from '@thebespokepixel/string'
 import yargs from 'yargs'
