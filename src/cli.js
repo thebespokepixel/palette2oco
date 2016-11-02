@@ -12,10 +12,10 @@ import yargs from 'yargs'
 import globby from 'globby'
 import readPkg from 'read-pkg'
 import updateNotifier from 'update-notifier'
-import trucolor from 'trucolor'
+import {simple} from 'trucolor'
 import {console, paletteReader, paletteWriter} from './index'
 
-const clr = trucolor.simplePalette()
+const clr = simple({format: 'sgr'})
 
 const _package = readPkg.sync(resolve(__dirname, '..'))
 

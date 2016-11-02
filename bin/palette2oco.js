@@ -15,7 +15,7 @@ const yargs = _interopDefault(require('yargs'))
 const globby = _interopDefault(require('globby'))
 const readPkg = _interopDefault(require('read-pkg'))
 const updateNotifier = _interopDefault(require('update-notifier'))
-const trucolor = _interopDefault(require('trucolor'))
+const trucolor = require('trucolor')
 const verbosity = require('verbosity')
 const _isEqual = _interopDefault(require('lodash/isEqual'))
 const fs = _interopDefault(require('fs'))
@@ -218,7 +218,9 @@ function paletteWriter(destination, palette) {
 	return writer(destination, palette)
 }
 
-const clr = trucolor.simplePalette()
+const clr = trucolor.simple({
+	format: 'sgr'
+})
 
 const _package = readPkg.sync(path.resolve(__dirname, '..'))
 
