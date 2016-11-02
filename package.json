@@ -56,7 +56,7 @@
     "trucolor": "^0.5.5",
     "truwrap": "^0.6.3",
     "update-notifier": "^1.0.2",
-    "verbosity": "^0.8.1",
+    "verbosity": "^0.8.2",
     "yargs": "^6.0.0"
   },
   "devDependencies": {
