@@ -8,14 +8,14 @@ function _interopDefault(ex) {
 const _initial = _interopDefault(require('lodash/initial'))
 const _tail = _interopDefault(require('lodash/tail'))
 const path = require('path')
-const truwrap = _interopDefault(require('truwrap'))
+const truwrap = require('truwrap')
 const commonTags = require('common-tags')
 const _thebespokepixel_string = require('@thebespokepixel/string')
 const yargs = _interopDefault(require('yargs'))
 const globby = _interopDefault(require('globby'))
 const readPkg = _interopDefault(require('read-pkg'))
 const updateNotifier = _interopDefault(require('update-notifier'))
-const trucolor = _interopDefault(require('trucolor'))
+const trucolor = require('trucolor')
 const verbosity = require('verbosity')
 const _isEqual = _interopDefault(require('lodash/isEqual'))
 const fs = _interopDefault(require('fs'))
@@ -218,11 +218,13 @@ function paletteWriter(destination, palette) {
 	return writer(destination, palette)
 }
 
-const clr = trucolor.simplePalette()
+const clr = trucolor.simple({
+	format: 'sgr'
+})
 
 const _package = readPkg.sync(path.resolve(__dirname, '..'))
 
-const renderer = truwrap({
+const renderer = truwrap.truwrap({
 	outStream: process.stderr
 })
 

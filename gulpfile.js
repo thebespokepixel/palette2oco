@@ -1,7 +1,6 @@
-/*
- * Gulp User Tasks
- */
-
+/* ─────────────╮
+ │ gulp/cordial │
+ ╰──────────────┴────────────────────────────────────────────────────────────── */
 const gulp = require('gulp')
 const cordial = require('@thebespokepixel/cordial')()
 
@@ -20,12 +19,12 @@ gulp.task('cli', gulp.series(
 		source: 'src/cli.js'
 	}).rollup.babel({
 		banner: '#! /usr/bin/env node',
-		dest: 'bin/palette2oco.js'
+		dest: 'bin/palette2oco'
 	}),
 
 	cordial.shell().permissions({
 		mode: '755',
-		dest: 'bin/palette2oco.js'
+		dest: 'bin/palette2oco'
 	})
 ))
 
@@ -41,7 +40,7 @@ gulp.task('readme', cordial.shell({
 
 // Clean
 gulp.task('clean', cordial.shell({
-	source: ['npm-debug.*', './.nyc_output', './test/coverage']
+	source: ['bin/*', 'npm-debug.*', './.nyc_output', './test/coverage']
 }).trash())
 
 // Tests
