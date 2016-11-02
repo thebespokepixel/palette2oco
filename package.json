@@ -53,7 +53,7 @@
     "opencolor": "^0.2.0",
     "read-pkg": "^2.0.0",
     "shelljs": "^0.7.4",
-    "trucolor": "^0.5.5",
+    "trucolor": "^0.6.3",
     "truwrap": "^0.6.3",
     "update-notifier": "^1.0.2",
     "verbosity": "^0.8.1",
