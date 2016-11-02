@@ -11,7 +11,6 @@
     "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
     "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
     "readme": "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
-    "code-climate": "nyc report --reporter=text-lcov | codeclimate-test-reporter",
     "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
     "clean": "gulp clean",
     "postpublish": "greenkeeper-postpublish"
@@ -43,7 +42,7 @@
   },
   "homepage": "https://github.com/MarkGriffiths/palette2oco#readme",
   "dependencies": {
-    "@thebespokepixel/oco-colorvalue-ex": "^0.2.0",
+    "@thebespokepixel/oco-colorvalue-ex": "^0.2.2",
     "@thebespokepixel/string": "^0.4.3",
     "ase-util": "^1.0.1",
     "common-tags": "^1.3.1",
@@ -53,10 +52,10 @@
     "opencolor": "^0.2.0",
     "read-pkg": "^2.0.0",
     "shelljs": "^0.7.4",
-    "trucolor": "^0.6.3",
-    "truwrap": "^0.6.3",
+    "trucolor": "^0.6.4",
+    "truwrap": "^0.7.1",
     "update-notifier": "^1.0.2",
-    "verbosity": "^0.8.1",
+    "verbosity": "^0.8.2",
     "yargs": "^6.0.0"
   },
   "devDependencies": {
@@ -64,7 +63,7 @@
     "ava": "^0.16.0",
     "codeclimate-test-reporter": "^0.4.0",
     "documentation": "^4.0.0-beta11",
-    "documentation-theme-bespoke": "^0.3.2",
+    "documentation-theme-bespoke": "^0.3.4",
     "greenkeeper-postpublish": "^1.0.1",
     "gulp": "github:gulpjs/gulp#4.0",
     "nyc": "^8.3.2",
@@ -133,7 +132,7 @@
       ]
     ]
   },
-  "buildNumber": 1,
+  "buildNumber": 3,
   "engines": {
     "node": ">=4.0 <9.0"
   },

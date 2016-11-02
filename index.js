@@ -1,37 +1,41 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', {
+	value: true
+})
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+function _interopDefault(ex) {
+	return (ex && (typeof ex === 'object') && 'default' in ex) ? ex.default : ex
+}
 
-var verbosity = require('verbosity');
-var _isEqual = _interopDefault(require('lodash/isEqual'));
-var path = require('path');
-var fs = _interopDefault(require('fs'));
-var promisify = _interopDefault(require('es6-promisify'));
-var _thebespokepixel_ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex');
-var oco = _interopDefault(require('opencolor'));
-var ase = _interopDefault(require('ase-util'));
-var _kebabCase = _interopDefault(require('lodash/kebabCase'));
-var _merge = _interopDefault(require('lodash/merge'));
+const verbosity = require('verbosity')
+const _isEqual = _interopDefault(require('lodash/isEqual'))
+const path = require('path')
+const fs = _interopDefault(require('fs'))
+const promisify = _interopDefault(require('es6-promisify'))
+const _thebespokepixel_ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex')
+const oco = _interopDefault(require('opencolor'))
+const ase = _interopDefault(require('ase-util'))
+const _kebabCase = _interopDefault(require('lodash/kebabCase'))
+const _merge = _interopDefault(require('lodash/merge'))
 
-const loader = promisify(fs.readFile);
+const loader = promisify(fs.readFile)
 
-const supportedTypes = ['oco', 'json', 'sippalette', 'ase'];
+const supportedTypes = ['oco', 'json', 'sippalette', 'ase']
 
-const fileFilter = new RegExp(`.(${ supportedTypes.join('|') })$`);
-const fileMatch = new RegExp(`(.*/)(.+?).(${ supportedTypes.join('|') })$`);
+const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`)
+const fileMatch = new RegExp(`(.*/)(.+?).(${supportedTypes.join('|')})$`)
 
 function createIdentity(rootPath) {
 	return function (path$$1) {
-		const address = path$$1.replace(rootPath, '').match(fileMatch);
+		const address = path$$1.replace(rootPath, '').match(fileMatch)
 		return {
 			source: path$$1,
 			name: address[2],
 			path: address[1].replace(/^\//, '').replace(/\//g, '.'),
 			type: address[3]
-		};
-	};
+		}
+	}
 }
 
 function testPaletteJSONColor(datum, min, max) {
@@ -41,7 +45,7 @@ function testPaletteJSONColor(datum, min, max) {
 		green: datum.green >= min && datum.green <= max && datum.green,
 		blue: datum.blue >= min && datum.blue <= max && datum.blue,
 		alpha: datum.alpha >= min && datum.alpha <= max && datum.alpha
-	};
+	}
 }
 
 function isPaletteJSON(datum) {
@@ -52,38 +56,38 @@ function isPaletteJSON(datum) {
 		},
 		rgba: testPaletteJSONColor(datum, 0.0, 1.0),
 		rgbaInteger: testPaletteJSONColor(datum, 0, 255)
-	};
+	}
 	return {
 		isPalette: _isEqual(datum, tests.palette),
 		isRGBA: _isEqual(datum, tests.rgba),
 		isIntegerRGBA: _isEqual(datum, tests.rgbaInteger)
-	};
+	}
 }
 
 function loadOCO(identity) {
-	return loader(identity.source, 'utf8').then(oco.parse);
+	return loader(identity.source, 'utf8').then(oco.parse)
 }
 
 function loadJSON(identity) {
 	return loader(identity.source, 'utf8').then(JSON.parse).then(palette => {
 		if (isPaletteJSON(palette).isPalette) {
-			console.debug(`JSON Palette: ${ palette.name }`);
+			console.debug(`JSON Palette: ${palette.name}`)
 			return new oco.Entry(identity.name, [_thebespokepixel_ocoColorvalueEx.OCOValueEX.generateOCO(palette.name, palette.colors.map(color => {
-				const paletteColor = isPaletteJSON(color);
+				const paletteColor = isPaletteJSON(color)
 				switch (true) {
 					case paletteColor.isRGBA:
-						console.debug(`JSON Color (RGBA): ${ color.name }`);
-						return _thebespokepixel_ocoColorvalueEx.fromPrecise(color);
+						console.debug(`JSON Color (RGBA): ${color.name}`)
+						return _thebespokepixel_ocoColorvalueEx.fromPrecise(color)
 					case paletteColor.isIntegerRGBA:
-						console.debug(`JSON Color (Integer RGBA): ${ color.name }`);
-						return _thebespokepixel_ocoColorvalueEx.fromBytes(color);
+						console.debug(`JSON Color (Integer RGBA): ${color.name}`)
+						return _thebespokepixel_ocoColorvalueEx.fromBytes(color)
 					default:
-						throw new Error(`${ color.name }.json is not a valid JSON color object`);
+						throw new Error(`${color.name}.json is not a valid JSON color object`)
 				}
-			}))]);
+			}))])
 		}
-		throw new Error(`${ identity.name }.json is not a valid palette`);
-	});
+		throw new Error(`${identity.name}.json is not a valid palette`)
+	})
 }
 
 function loadASE(identity) {
@@ -94,83 +98,83 @@ function loadASE(identity) {
 					switch (datum.color.model) {
 						case 'Gray':
 						case 'RGB':
-							console.debug(`ASE Color (RGB/Grayscale): ${ datum.name }`);
-							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX(datum.color.hex, datum.name);
+							console.debug(`ASE Color (RGB/Grayscale): ${datum.name}`)
+							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX(datum.color.hex, datum.name)
 						case 'CMYK':
-							console.debug(`ASE Color (CMYK): ${ datum.name }`);
+							console.debug(`ASE Color (CMYK): ${datum.name}`)
 							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX({
 								cyan: datum.color.c,
 								magenta: datum.color.m,
 								yellow: datum.color.y,
 								black: datum.color.k
-							}, datum.name);
+							}, datum.name)
 						case 'LAB':
-							console.debug(`ASE Color (Lab): ${ datum.name }`);
+							console.debug(`ASE Color (Lab): ${datum.name}`)
 							return new _thebespokepixel_ocoColorvalueEx.OCOValueEX({
 								L: datum.color.lightness,
 								a: datum.color.a,
 								b: datum.color.b
-							}, datum.name);
+							}, datum.name)
 						default:
-							throw new Error(`${ datum.color.model } is not a valid ASE color model`);
+							throw new Error(`${datum.color.model} is not a valid ASE color model`)
 					}
 
 				case 'group':
-					console.debug(`ASE Group: ${ datum.name }`);
-					return _thebespokepixel_ocoColorvalueEx.OCOValueEX.generateOCO(datum.name, scan(datum.entries));
+					console.debug(`ASE Group: ${datum.name}`)
+					return _thebespokepixel_ocoColorvalueEx.OCOValueEX.generateOCO(datum.name, scan(datum.entries))
 
 				default:
-					throw new Error(`${ datum.type } is not a valid ASE data type`);
+					throw new Error(`${datum.type} is not a valid ASE data type`)
 			}
-		});
+		})
 	}
 
 	return loader(identity.source).then(ase.read).then(palette => {
 		if (Array.isArray(palette)) {
-			return palette.length === 1 ? new oco.Entry(identity.name, scan(palette)) : _thebespokepixel_ocoColorvalueEx.OCOValueEX.generateOCO(identity.name, scan(palette));
+			return palette.length === 1 ? new oco.Entry(identity.name, scan(palette)) : _thebespokepixel_ocoColorvalueEx.OCOValueEX.generateOCO(identity.name, scan(palette))
 		}
-		throw new Error(`${ identity.name }.ase is not a valid palette`);
-	});
+		throw new Error(`${identity.name}.ase is not a valid palette`)
+	})
 }
 
 function selectLoaderByIndentity(type) {
 	switch (type) {
 		case 'sippalette':
-			return loadJSON;
+			return loadJSON
 		case 'json':
-			return loadJSON;
+			return loadJSON
 		case 'ase':
-			return loadASE;
+			return loadASE
 		case 'oco':
-			return loadOCO;
+			return loadOCO
 		default:
-			throw new Error(`${ type } is not recognised`);
+			throw new Error(`${type} is not recognised`)
 	}
 }
 
 class Reader {
 	constructor(source_) {
-		this.sourcePath = source_;
-		this.tree = new oco.Entry();
+		this.sourcePath = source_
+		this.tree = new oco.Entry()
 	}
 
 	pick(key_) {
-		return key_ ? this.tree.get(key_) : this.tree.root();
+		return key_ ? this.tree.get(key_) : this.tree.root()
 	}
 
 	transform(formats) {
 		this.tree.traverseTree('Color', color_ => {
-			const original = color_.get(0).identifiedValue.getOriginalInput();
-			color_.children = [];
+			const original = color_.get(0).identifiedValue.getOriginalInput()
+			color_.children = []
 
 			formats.forEach((format, index_) => {
-				const newFormat = new _thebespokepixel_ocoColorvalueEx.OCOValueEX(original, color_.name);
-				newFormat._format = format;
+				const newFormat = new _thebespokepixel_ocoColorvalueEx.OCOValueEX(original, color_.name)
+				newFormat._format = format
 
-				color_.addChild(new oco.ColorValue(format, newFormat.toString(format), newFormat), true, index_);
-			});
-		});
-		return this;
+				color_.addChild(new oco.ColorValue(format, newFormat.toString(format), newFormat), true, index_)
+			})
+		})
+		return this
 	}
 
 	load(pathArray) {
@@ -178,72 +182,76 @@ class Reader {
 			entry.addMetadata({
 				'import/file/source': path.relative(process.cwd(), identity.source),
 				'import/file/type': identity.type
-			});
-			return entry;
-		}).then(entry => this.tree.set(`${ identity.path }${ identity.name }`, entry)))).then(() => this);
+			})
+			return entry
+		}).then(entry => this.tree.set(`${identity.path}${identity.name}`, entry)))).then(() => this)
 	}
 
 	render(path$$1) {
-		return oco.render(this.pick(path$$1));
+		return oco.render(this.pick(path$$1))
 	}
 }
 
-const writeFile = promisify(fs.writeFile);
+const writeFile = promisify(fs.writeFile)
 
 function writer(destination, contents) {
-  console.debug(`Writing file to ${ destination }`);
-  return writeFile(destination, contents);
+	console.debug(`Writing file to ${destination}`)
+	return writeFile(destination, contents)
 }
 
 function oco2Object(oco$$1) {
-	const output = {};
+	const output = {}
 	const recurseForPath = (entry, tree) => {
 		if (entry.name === 'Root') {
-			return tree;
+			return tree
 		}
 		return recurseForPath(entry.parent, {
 			[entry.name]: tree
-		});
-	};
+		})
+	}
 
 	oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
-		const color = entry.type === 'Color' ? entry : entry.resolved();
+		const color = entry.type === 'Color' ? entry : entry.resolved()
 		_merge(output, recurseForPath(entry.parent, {
 			[entry.name]: new _thebespokepixel_ocoColorvalueEx.OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
-		}));
-	});
-	return output;
+		}))
+	})
+	return output
 }
 
 function oco2Vars(oco$$1) {
-	let prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+	const prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ''
 
-	let output = '';
+	let output = ''
 	const recurseForPath = entry => {
 		if (entry.name === 'Root') {
-			return '';
+			return ''
 		}
-		return `${ recurseForPath(entry.parent) } ${ entry.name }`;
-	};
+		return `${recurseForPath(entry.parent)} ${entry.name}`
+	}
 	oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
-		const color = entry.type === 'Color' ? entry : entry.resolved();
-		output += `${ prefix }${ _kebabCase(recurseForPath(entry)) } = ${ color.get(0).identifiedValue.toString('rgb') }\n`;
-	});
-	return output;
+		const color = entry.type === 'Color' ? entry : entry.resolved()
+		output += `${prefix}${_kebabCase(recurseForPath(entry))} = ${color.get(0).identifiedValue.toString('rgb')}
+`
+	})
+	return output
 }
 
-const console = verbosity.createConsole({ outStream: process.stderr });
+const console = verbosity.createConsole({
+	outStream: process.stderr
+})
 
 function paletteReader(pathArray) {
-  return new Reader(pathArray);
+	return new Reader(pathArray)
 }
 
 function paletteWriter(destination, palette) {
-  return writer(destination, palette);
+	return writer(destination, palette)
 }
 
-exports.console = console;
-exports.paletteReader = paletteReader;
-exports.paletteWriter = paletteWriter;
-exports.oco2Object = oco2Object;
-exports.oco2Vars = oco2Vars;
+exports.console = console
+exports.paletteReader = paletteReader
+exports.paletteWriter = paletteWriter
+exports.oco2Object = oco2Object
+exports.oco2Vars = oco2Vars
+

@@ -1,7 +1,6 @@
-/*
- * Gulp User Tasks
- */
-
+/* ─────────────╮
+ │ gulp/cordial │
+ ╰──────────────┴────────────────────────────────────────────────────────────── */
 const gulp = require('gulp')
 const cordial = require('@thebespokepixel/cordial')()
 
@@ -41,7 +40,7 @@ gulp.task('readme', cordial.shell({
 
 // Clean
 gulp.task('clean', cordial.shell({
-	source: ['npm-debug.*', './.nyc_output', './test/coverage']
+	source: ['bin/*', 'npm-debug.*', './.nyc_output', './test/coverage']
 }).trash())
 
 // Tests
