@@ -1,6 +1,6 @@
 test:
   import/
-    file/source: fixtures/in/json/test.json
+    file/source: test/fixtures/in/json/test.json
     file/type: json
   Test:
     Ku Crimson: rgb(240, 0, 0)
