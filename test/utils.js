@@ -24,8 +24,8 @@ test-test-fuchsia = rgb(240, 0, 240)
 `
 
 test('Named palette (JSON) to Object', async t => {
-	await paletteReader('fixtures/in/json')
-		.load(['fixtures/in/json/test.json'])
+	await paletteReader('test/fixtures/in/json')
+		.load(['test/fixtures/in/json/test.json'])
 		.then(oco2Object)
 		.then(palette => {
 			t.deepEqual(palette, Object.assign(objectTemplate, palette))
@@ -33,8 +33,8 @@ test('Named palette (JSON) to Object', async t => {
 })
 
 test('Named palette (JSON) to Vars', async t => {
-	await paletteReader('fixtures/in/json')
-		.load(['fixtures/in/json/test.json'])
+	await paletteReader('test/fixtures/in/json')
+		.load(['test/fixtures/in/json/test.json'])
 		.then(oco2Vars)
 		.then(palette => {
 			t.is(palette, varTemplate)

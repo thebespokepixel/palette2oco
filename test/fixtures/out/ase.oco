@@ -1,6 +1,6 @@
 test:
   import/
-    file/source: fixtures/in/ase/test.ase
+    file/source: test/fixtures/in/ase/test.ase
     file/type: ase
   Test:
     Ku Crimson: rgb(239, 0, 0)
