@@ -52,21 +52,21 @@
     "opencolor": "^0.2.0",
     "read-pkg": "^2.0.0",
     "shelljs": "^0.7.4",
-    "trucolor": "^0.6.4",
-    "truwrap": "^0.7.1",
+    "trucolor": "^0.6.6",
+    "truwrap": "^0.7.4",
     "update-notifier": "^1.0.2",
-    "verbosity": "^0.8.2",
+    "verbosity": "^0.8.3",
     "yargs": "^6.0.0"
   },
   "devDependencies": {
     "@thebespokepixel/cordial": "^0.17.11",
-    "ava": "^0.16.0",
+    "ava": "^0.17.0",
     "codeclimate-test-reporter": "^0.4.0",
     "documentation": "^4.0.0-beta11",
     "documentation-theme-bespoke": "^0.3.4",
     "greenkeeper-postpublish": "^1.0.1",
     "gulp": "github:gulpjs/gulp#4.0",
-    "nyc": "^8.3.2",
+    "nyc": "^10.0.2",
     "xo": "^0.17.0"
   },
   "xo": {
