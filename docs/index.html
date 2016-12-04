@@ -93,15 +93,14 @@
 	
 	
 		<h4>Load structured palette data from various tools into Open Color format.</h4>
-<pre><code class="language-js">import {paletteReader, paletteWriter, console} from 'palette2oco'
+<pre class='hljs'><span class="hljs-keyword">import</span> {paletteReader, paletteWriter, <span class="hljs-built_in">console</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'palette2oco'</span>
 
 paletteReader(pathRoot).load(pathArray)
-  .then(palette => palette.render(ocoPath))
-  .then(oco => paletteWriter(destinationFile, oco))
-  .catch(err => {
-    console.error(err)
-  })
-</code></pre>
+  .then(<span class="hljs-function"><span class="hljs-params">palette</span> =&gt;</span> palette.render(ocoPath))
+  .then(<span class="hljs-function"><span class="hljs-params">oco</span> =&gt;</span> paletteWriter(destinationFile, oco))
+  .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(err)
+  })</pre>
 <h4>Convert palette data from a variety of sources into Open Color .oco format.</h4>
 <p>Allows structured directories of pallette data to be converted into nested oco palette data.</p>
 <h5>Formats supported:</h5>
@@ -116,20 +115,19 @@ paletteReader(pathRoot).load(pathArray)
 <p>Vanilla JSON: File signature must match the following...</p>
 </li>
 </ul>
-<pre><code class="language-js">{
-  "name" : "Palette name",
-  "colors" : [
+<pre class='hljs'>{
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"Palette name"</span>,
+  <span class="hljs-string">"colors"</span> : [
     {
-      name: "Color name",
-      red: (0.0 - 1.0 | 0 - 255)
-      green: (0.0 - 1.0 | 0 - 255)
-      blue: (0.0 - 1.0 | 0 - 255)
-      alpha: (0.0 - 1.0 | 0 - 255)
+      <span class="hljs-attr">name</span>: <span class="hljs-string">"Color name"</span>,
+      <span class="hljs-attr">red</span>: (<span class="hljs-number">0.0</span> - <span class="hljs-number">1.0</span> | <span class="hljs-number">0</span> - <span class="hljs-number">255</span>)
+      green: (<span class="hljs-number">0.0</span> - <span class="hljs-number">1.0</span> | <span class="hljs-number">0</span> - <span class="hljs-number">255</span>)
+      blue: (<span class="hljs-number">0.0</span> - <span class="hljs-number">1.0</span> | <span class="hljs-number">0</span> - <span class="hljs-number">255</span>)
+      alpha: (<span class="hljs-number">0.0</span> - <span class="hljs-number">1.0</span> | <span class="hljs-number">0</span> - <span class="hljs-number">255</span>)
     }
     ...
   ]
-}
-</code></pre>
+}</pre>
 
 	
 </section>
@@ -159,7 +157,7 @@ paletteReader(pathRoot).load(pathArray)
       paletteReader  <span>→ Reader</span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/20eb13b78fa2e133664a374f8cb5ab8e9ab25597/src/index.js#L21-L23">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/ced8967433544eba14814dbcb202e18b5a7af329/src/index.js#L21-L23">src/index.js</a>
     
   </div>
   
@@ -226,7 +224,7 @@ paletteReader(pathRoot).load(pathArray)
       paletteWriter  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/20eb13b78fa2e133664a374f8cb5ab8e9ab25597/src/index.js#L31-L33">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/ced8967433544eba14814dbcb202e18b5a7af329/src/index.js#L31-L33">src/index.js</a>
     
   </div>
   
