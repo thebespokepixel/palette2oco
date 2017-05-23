@@ -1,5 +1,7 @@
 # palette2oco converter
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/MarkGriffiths/palette2oco.svg)](https://greenkeeper.io/)
+
 > Load or convert files or directories of various palette formats to structured Open Color data or .oco files.
 
 ##### Status
