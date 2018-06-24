@@ -3,6 +3,12 @@
   "version": "0.1.7",
   "description": "Convert directories of Sip, JSON and ASE palette files to Open Color",
   "main": "index.js",
+  "module": "index.mjs",
+  "files": [
+    "bin/",
+    "index.js",
+    "index.mjs"
+  ],
   "bin": {
     "palette2oco": "./bin/palette2oco"
   },
@@ -11,15 +17,8 @@
     "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
     "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
     "readme": "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
-    "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
-    "clean": "gulp clean",
-    "postpublish": "greenkeeper-postpublish"
+    "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html"
   },
-  "files": [
-    "bin/",
-    "index-es.js",
-    "index.js"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MarkGriffiths/palette2oco.git"
@@ -42,40 +41,45 @@
   },
   "homepage": "https://github.com/MarkGriffiths/palette2oco#readme",
   "dependencies": {
-    "@thebespokepixel/oco-colorvalue-ex": "^0.2.2",
-    "@thebespokepixel/string": "^0.4.3",
+    "@thebespokepixel/oco-colorvalue-ex": "^0.3.0",
+    "@thebespokepixel/string": "^0.5.1",
     "ase-util": "^1.0.1",
-    "common-tags": "^1.3.1",
-    "es6-promisify": "^5.0.0",
-    "globby": "^6.0.0",
-    "lodash": "^4.16.6",
+    "common-tags": "^1.8.0",
+    "es6-promisify": "^6.0.0",
+    "globby": "^8.0.1",
+    "lodash": "^4.17.10",
     "opencolor": "^0.2.0",
-    "read-pkg": "^2.0.0",
-    "shelljs": "^0.7.4",
-    "trucolor": "^0.6.6",
-    "truwrap": "^0.7.4",
-    "update-notifier": "^1.0.2",
-    "verbosity": "^0.8.3",
-    "yargs": "^6.0.0"
+    "read-pkg": "^3.0.0",
+    "shelljs": "^0.8.2",
+    "trucolor": "^0.7.1",
+    "truwrap": "^0.8.1",
+    "update-notifier": "^2.5.0",
+    "verbosity": "^0.9.1",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "@thebespokepixel/cordial": "^0.17.11",
-    "ava": "^0.17.0",
-    "codeclimate-test-reporter": "^0.4.0",
-    "documentation": "^4.0.0-beta15",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "ava": "^0.25.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "documentation": "^8.0.0",
     "documentation-theme-bespoke": "^0.3.5",
-    "greenkeeper-postpublish": "^1.0.1",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "nyc": "^10.0.0",
-    "xo": "^0.17.0"
+    "esm": "^3.0.53",
+    "gulp": "^4.0.0",
+    "gulp-better-rollup": "^3.2.1",
+    "gulp-chmod": "^2.0.0",
+    "gulp-rename": "^1.3.0",
+    "nyc": "^12.0.2",
+    "rollup-plugin-babel": "^4.0.0-beta.5",
+    "xo": "^0.21.1"
   },
   "xo": {
     "semicolon": false,
     "esnext": true,
     "ignores": [
-      "index*.js",
+      "index.js",
+      "index.mjs",
       "bin/**",
-      "lib/**",
       "docs/**"
     ]
   },
@@ -132,9 +136,7 @@
       ]
     ]
   },
-  "buildNumber": 0,
   "engines": {
-    "node": ">=4.0 <9.0"
-  },
-  "jsnext:main": "index-es.js"
+    "node": ">=8.0"
+  }
 }

@@ -8,11 +8,11 @@ import {relative as relativePath} from 'path'
 import fs from 'fs'
 
 import _ from 'lodash'
-import promisify from 'es6-promisify'
+import {promisify} from 'es6-promisify'
 import {OCOValueEX, fromPrecise, fromBytes} from '@thebespokepixel/oco-colorvalue-ex'
 import oco from 'opencolor'
 import ase from 'ase-util'
-import {console} from '../index'
+import {console} from '../main'
 
 const loader = promisify(fs.readFile)
 
@@ -24,7 +24,7 @@ const supportedTypes = [
 ]
 
 const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`)
-const fileMatch = new RegExp(`(.*/)(.+?).(${supportedTypes.join('|')})$`)
+const fileMatch = new RegExp(`(.*/)*(.+?).(${supportedTypes.join('|')})$`)
 
 function createIdentity(rootPath) {
 	return function (path) {
@@ -66,43 +66,41 @@ function isPaletteJSON(datum) {
 	}
 }
 
-function loadOCO(identity) {
-	return loader(identity.source, 'utf8')
-		.then(oco.parse)
+async function loadOCO(identity) {
+	const ocoSource = await loader(identity.source, 'utf8')
+	return oco.parse(ocoSource)
 }
 
-function loadJSON(identity) {
-	return loader(identity.source, 'utf8')
-		.then(JSON.parse)
-		.then(palette => {
-			if (isPaletteJSON(palette).isPalette) {
-				console.debug(`JSON Palette: ${palette.name}`)
-				return new oco.Entry(
-					identity.name,
-					[OCOValueEX.generateOCO(
-						palette.name,
-						palette.colors.map(color => {
-							const paletteColor = isPaletteJSON(color)
-							switch (true) {
-								case paletteColor.isRGBA:
-									console.debug(`JSON Color (RGBA): ${color.name}`)
-									return fromPrecise(color)
-								case paletteColor.isIntegerRGBA:
-									console.debug(`JSON Color (Integer RGBA): ${color.name}`)
-									return fromBytes(color)
-								default:
-									throw new Error(`${color.name}.json is not a valid JSON color object`)
-							}
-						})
-					)]
-				)
-			}
-			throw new Error(`${identity.name}.json is not a valid palette`)
-		}
-	)
+async function loadJSON(identity) {
+	const json = await loader(identity.source, 'utf8')
+	const palette = JSON.parse(json)
+
+	if (isPaletteJSON(palette).isPalette) {
+		console.debug(`JSON Palette: ${palette.name}`)
+		return new oco.Entry(
+			identity.name,
+			[OCOValueEX.generateOCO(
+				palette.name,
+				palette.colors.map(color => {
+					const paletteColor = isPaletteJSON(color)
+					switch (true) {
+						case paletteColor.isRGBA:
+							console.debug(`JSON Color (RGBA): ${color.name}`)
+							return fromPrecise(color)
+						case paletteColor.isIntegerRGBA:
+							console.debug(`JSON Color (Integer RGBA): ${color.name}`)
+							return fromBytes(color)
+						default:
+							throw new Error(`${color.name}.json is not a valid JSON color object`)
+					}
+				})
+			)]
+		)
+	}
+	throw new Error(`${identity.name}.json is not a valid palette`)
 }
 
-function loadASE(identity) {
+async function loadASE(identity) {
 	function scan(node) {
 		return node.map(datum => {
 			switch (datum.type) {
@@ -144,20 +142,19 @@ function loadASE(identity) {
 		})
 	}
 
-	return loader(identity.source)
-		.then(ase.read)
-		.then(palette => {
-			if (Array.isArray(palette)) {
-				return palette.length === 1 ? new oco.Entry(
-					identity.name,
-					scan(palette)
-				) : OCOValueEX.generateOCO(
-					identity.name,
-					scan(palette)
-				)
-			}
-			throw new Error(`${identity.name}.ase is not a valid palette`)
-		})
+	const aseSource = await loader(identity.source)
+	const palette = await ase.read(aseSource)
+
+	if (Array.isArray(palette)) {
+		return palette.length === 1 ? new oco.Entry(
+			identity.name,
+			scan(palette)
+		) : OCOValueEX.generateOCO(
+			identity.name,
+			scan(palette)
+		)
+	}
+	throw new Error(`${identity.name}.ase is not a valid palette`)
 }
 
 function selectLoaderByIndentity(type) {
@@ -216,21 +213,20 @@ export default class Reader {
 	 * @param  {string[]} pathArray The array of paths to load.
 	 * @return {Promise} A Promise that resolves with this instance when loaded.
 	 */
-	load(pathArray) {
-		return Promise.all(pathArray
+	async load(pathArray) {
+		await Promise.all(pathArray
 			.filter(file => file.match(fileFilter))
 			.map(createIdentity(this.sourcePath))
-			.map(identity => selectLoaderByIndentity(identity.type)(identity)
-				.then(entry => {
-					entry.addMetadata({
-						'import/file/source': relativePath(process.cwd(), identity.source),
-						'import/file/type': identity.type
-					})
-					return entry
+			.map(async identity => {
+				const entry = await selectLoaderByIndentity(identity.type)(identity)
+				entry.addMetadata({
+					'import/file/source': relativePath(process.cwd(), identity.source),
+					'import/file/type': identity.type
 				})
-				.then(entry => this.tree.set(`${identity.path}${identity.name}`, entry)))
+				this.tree.set(`${identity.path}${identity.name}`, entry)
+			})
 		)
-		.then(() => this)
+		return this
 	}
 
 	render(path) {
