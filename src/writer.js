@@ -3,8 +3,8 @@
  ╰─────────────┴─────────────────────────────────────────────────────────────── */
 
 import fs from 'fs'
-import promisify from 'es6-promisify'
-import {console} from './index'
+import {promisify} from 'es6-promisify'
+import {console} from './main'
 
 const writeFile = promisify(fs.writeFile)
 

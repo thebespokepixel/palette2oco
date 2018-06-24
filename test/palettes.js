@@ -58,7 +58,7 @@ test('Named palette (ASE)', async t => {
 })
 
 test('Invalid palette (ASE)', async t => {
-	t.throws(paletteReader('test/fixtures/in/ase')
+	await t.throws(paletteReader('test/fixtures/in/ase')
 		.load(['test/fixtures/in/ase/invalid.ase']))
 })
 

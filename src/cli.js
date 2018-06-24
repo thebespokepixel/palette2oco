@@ -13,7 +13,7 @@ import globby from 'globby'
 import readPkg from 'read-pkg'
 import updateNotifier from 'update-notifier'
 import {simple} from 'trucolor'
-import {console, paletteReader, paletteWriter} from './index'
+import {console, paletteReader, paletteWriter} from './main'
 
 const clr = simple({format: 'sgr'})
 
@@ -73,9 +73,9 @@ const usage = stripIndent(colorReplacer)`${title}
 	Usage:
 	${'command|palette2oco'} ${'option|[options]'} ${'argument|sourceGlob'} ${'argument|outputFile'}`
 
-const epilogue = colorReplacer`${'green|© 2016'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`
+const epilogue = colorReplacer`${'green|© 2018'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`
 
-yargs.strict().options({
+yargs.strict().help(false).version(false).options({
 	h: {
 		alias: 'help',
 		describe: 'Display help.'
@@ -95,7 +95,7 @@ yargs.strict().options({
 	}
 }).wrap(renderer.getWidth())
 
-const argv = yargs.argv
+const {argv} = yargs
 
 if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
 	updateNotifier({
@@ -114,8 +114,7 @@ if (argv.help) {
 }
 
 if (argv.version) {
-	const version = _package.buildNumber > 0 ? `${_package.version}-Δ${_package.buildNumber}` : `${_package.version}`
-	process.stdout.write(argv.version > 1 ? `${_package.name} v${version}` : version)
+	process.stdout.write(argv.version > 1 ? `${_package.name} v${_package.version}` : _package.version)
 	process.exit(0)
 }
 
@@ -135,17 +134,22 @@ if (argv.verbose) {
 	}
 }
 
-if (argv._.length > 1) {
+async function processor(paths) {
 	const root = resolve()
 	const dest = resolve(_.tail(argv._)[0])
-	globby(_.initial(argv._))
-	.then(pathArray => paletteReader(root).load(pathArray))
-	.then(pal => pal.render())
-	.then(contents => paletteWriter(dest, contents))
-	.catch(err => {
+	const pathArray = await globby(paths)
+	const pal = await paletteReader(root).load(pathArray)
+	const contents = await pal.render()
+	return paletteWriter(dest, contents)
+}
+
+if (argv._.length > 1) {
+	try {
+		processor(_.initial(argv._))
+	} catch (err) {
 		console.error(err)
 		process.exit(1)
-	})
+	}
 } else {
 	console.error('palette2oco needs at least a source and a destination.')
 	process.exit(1)

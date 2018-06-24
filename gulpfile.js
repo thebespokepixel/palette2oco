@@ -2,55 +2,86 @@
  │ gulp/cordial │
  ╰──────────────┴────────────────────────────────────────────────────────────── */
 const gulp = require('gulp')
-const cordial = require('@thebespokepixel/cordial')()
+const rename = require('gulp-rename')
+const chmod = require('gulp-chmod')
+const rollup = require('gulp-better-rollup')
+const babel = require('rollup-plugin-babel')
+const lodash = require('babel-plugin-lodash')
 
-// transpilation/formatting
-gulp.task('bundle', cordial.macro({
-	source: 'src/index.js'
-}).basic())
+const external = [
+	'@thebespokepixel/oco-colorvalue-ex',
+	'@thebespokepixel/string',
+	'ase-util',
+	'common-tags',
+	'es6-promisify',
+	'es6-promisify',
+	'fs',
+	'globby',
+	'lodash/initial',
+	'lodash/isEqual',
+	'lodash/kebabCase',
+	'lodash/merge',
+	'lodash/tail',
+	'opencolor',
+	'path',
+	'read-pkg',
+	'trucolor',
+	'truwrap',
+	'update-notifier',
+	'verbosity',
+	'yargs'
+]
 
-gulp.task('master', cordial.macro({
-	master: true,
-	source: 'src/index.js'
-}).basic())
+const babelConfig = {
+	plugins: [lodash],
+	presets: [
+		['@babel/preset-env', {
+			modules: false,
+			targets: {
+				node: '8.0.0'
+			}
+		}]
+	],
+	comments: false,
+	exclude: 'node_modules/**'
+}
 
-gulp.task('cli', gulp.series(
-	cordial.format({
-		source: 'src/cli.js'
-	}).rollup.babel({
-		banner: '#! /usr/bin/env node',
-		dest: 'bin/palette2oco'
-	}),
+gulp.task('cjs', () =>
+	gulp.src('src/main.js')
+		.pipe(rollup({
+			external,
+			plugins: [babel(babelConfig)]
+		}, {
+			format: 'cjs'
+		}))
+		.pipe(rename('index.js'))
+		.pipe(gulp.dest('.'))
+)
 
-	cordial.shell().permissions({
-		mode: '755',
-		dest: 'bin/palette2oco'
-	})
-))
+gulp.task('es6', () =>
+	gulp.src('src/main.js')
+		.pipe(rollup({
+			external,
+			plugins: [babel(babelConfig)]
+		}, {
+			format: 'es'
+		}))
+		.pipe(rename('index.mjs'))
+		.pipe(gulp.dest('.'))
+)
 
-// Docs
-gulp.task('docs', cordial.shell({
-	source: 'npm run doc-build'
-}).job())
+gulp.task('cli', () =>
+	gulp.src('src/cli.js')
+		.pipe(rollup({
+			external,
+			plugins: [babel(babelConfig)]
+		}, {
+			banner: '#! /usr/bin/env node',
+			format: 'cjs'
+		}))
+		.pipe(rename('palette2oco'))
+		.pipe(chmod(0o755))
+		.pipe(gulp.dest('bin'))
+)
 
-// ReadMe
-gulp.task('readme', cordial.shell({
-	source: 'npm run readme'
-}).job())
-
-// Clean
-gulp.task('clean', cordial.shell({
-	source: ['bin/*', 'npm-debug.*', './.nyc_output', './test/coverage']
-}).trash())
-
-// Tests
-gulp.task('ava', cordial.test().ava(['test/*.js']))
-gulp.task('xo', cordial.test().xo(['src/**.js']))
-gulp.task('test', gulp.parallel('xo', 'ava'))
-
-// Hooks
-gulp.task('start-release', gulp.series('reset', 'clean', gulp.parallel('master', 'cli'), 'readme'))
-gulp.task('post-flow-release-start', gulp.series('start-release', 'version-release', 'docs', 'commit'))
-
-// Default
-gulp.task('default', gulp.series('bump', 'clean', gulp.parallel('docs', 'bundle', 'cli', 'readme')))
+gulp.task('default', gulp.series('cjs', 'es6', 'cli'))

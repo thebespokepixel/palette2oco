@@ -1,30 +1,24 @@
-'use strict';
+import _isEqual from 'lodash/isEqual';
+import { relative } from 'path';
+import fs from 'fs';
+import { promisify } from 'es6-promisify';
+import { OCOValueEX, fromPrecise, fromBytes } from '@thebespokepixel/oco-colorvalue-ex';
+import oco from 'opencolor';
+import ase from 'ase-util';
+import _kebabCase from 'lodash/kebabCase';
+import _merge from 'lodash/merge';
+import { createConsole } from 'verbosity';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var _isEqual = _interopDefault(require('lodash/isEqual'));
-var path = require('path');
-var fs = _interopDefault(require('fs'));
-var es6Promisify = require('es6-promisify');
-var ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex');
-var oco = _interopDefault(require('opencolor'));
-var ase = _interopDefault(require('ase-util'));
-var _kebabCase = _interopDefault(require('lodash/kebabCase'));
-var _merge = _interopDefault(require('lodash/merge'));
-var verbosity = require('verbosity');
-
-const loader = es6Promisify.promisify(fs.readFile);
+const loader = promisify(fs.readFile);
 const supportedTypes = ['oco', 'json', 'sippalette', 'ase'];
 const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`);
 const fileMatch = new RegExp(`(.*/)*(.+?).(${supportedTypes.join('|')})$`);
 
 function createIdentity(rootPath) {
-  return function (path$$1) {
-    const address = path$$1.replace(rootPath, '').match(fileMatch);
+  return function (path) {
+    const address = path.replace(rootPath, '').match(fileMatch);
     return {
-      source: path$$1,
+      source: path,
       name: address[2],
       path: address[1].replace(/^\//, '').replace(/\//g, '.'),
       type: address[3]
@@ -69,17 +63,17 @@ async function loadJSON(identity) {
 
   if (isPaletteJSON(palette).isPalette) {
     console.debug(`JSON Palette: ${palette.name}`);
-    return new oco.Entry(identity.name, [ocoColorvalueEx.OCOValueEX.generateOCO(palette.name, palette.colors.map(color => {
+    return new oco.Entry(identity.name, [OCOValueEX.generateOCO(palette.name, palette.colors.map(color => {
       const paletteColor = isPaletteJSON(color);
 
       switch (true) {
         case paletteColor.isRGBA:
           console.debug(`JSON Color (RGBA): ${color.name}`);
-          return ocoColorvalueEx.fromPrecise(color);
+          return fromPrecise(color);
 
         case paletteColor.isIntegerRGBA:
           console.debug(`JSON Color (Integer RGBA): ${color.name}`);
-          return ocoColorvalueEx.fromBytes(color);
+          return fromBytes(color);
 
         default:
           throw new Error(`${color.name}.json is not a valid JSON color object`);
@@ -99,11 +93,11 @@ async function loadASE(identity) {
             case 'Gray':
             case 'RGB':
               console.debug(`ASE Color (RGB/Grayscale): ${datum.name}`);
-              return new ocoColorvalueEx.OCOValueEX(datum.color.hex, datum.name);
+              return new OCOValueEX(datum.color.hex, datum.name);
 
             case 'CMYK':
               console.debug(`ASE Color (CMYK): ${datum.name}`);
-              return new ocoColorvalueEx.OCOValueEX({
+              return new OCOValueEX({
                 cyan: datum.color.c,
                 magenta: datum.color.m,
                 yellow: datum.color.y,
@@ -112,7 +106,7 @@ async function loadASE(identity) {
 
             case 'LAB':
               console.debug(`ASE Color (Lab): ${datum.name}`);
-              return new ocoColorvalueEx.OCOValueEX({
+              return new OCOValueEX({
                 L: datum.color.lightness,
                 a: datum.color.a,
                 b: datum.color.b
@@ -124,7 +118,7 @@ async function loadASE(identity) {
 
         case 'group':
           console.debug(`ASE Group: ${datum.name}`);
-          return ocoColorvalueEx.OCOValueEX.generateOCO(datum.name, scan(datum.entries));
+          return OCOValueEX.generateOCO(datum.name, scan(datum.entries));
 
         default:
           throw new Error(`${datum.type} is not a valid ASE data type`);
@@ -136,7 +130,7 @@ async function loadASE(identity) {
   const palette = await ase.read(aseSource);
 
   if (Array.isArray(palette)) {
-    return palette.length === 1 ? new oco.Entry(identity.name, scan(palette)) : ocoColorvalueEx.OCOValueEX.generateOCO(identity.name, scan(palette));
+    return palette.length === 1 ? new oco.Entry(identity.name, scan(palette)) : OCOValueEX.generateOCO(identity.name, scan(palette));
   }
 
   throw new Error(`${identity.name}.ase is not a valid palette`);
@@ -176,7 +170,7 @@ class Reader {
       const original = color_.get(0).identifiedValue.getOriginalInput();
       color_.children = [];
       formats.forEach((format, index_) => {
-        const newFormat = new ocoColorvalueEx.OCOValueEX(original, color_.name);
+        const newFormat = new OCOValueEX(original, color_.name);
         newFormat._format = format;
         color_.addChild(new oco.ColorValue(format, newFormat.toString(format), newFormat), true, index_);
       });
@@ -188,7 +182,7 @@ class Reader {
     await Promise.all(pathArray.filter(file => file.match(fileFilter)).map(createIdentity(this.sourcePath)).map(async identity => {
       const entry = await selectLoaderByIndentity(identity.type)(identity);
       entry.addMetadata({
-        'import/file/source': path.relative(process.cwd(), identity.source),
+        'import/file/source': relative(process.cwd(), identity.source),
         'import/file/type': identity.type
       });
       this.tree.set(`${identity.path}${identity.name}`, entry);
@@ -196,13 +190,13 @@ class Reader {
     return this;
   }
 
-  render(path$$1) {
-    return oco.render(this.pick(path$$1));
+  render(path) {
+    return oco.render(this.pick(path));
   }
 
 }
 
-const writeFile = es6Promisify.promisify(fs.writeFile);
+const writeFile = promisify(fs.writeFile);
 function writer(destination, contents) {
   console.debug(`Writing file to ${destination}`);
   return writeFile(destination, contents);
@@ -225,7 +219,7 @@ function oco2Object(oco$$1) {
     const color = entry.type === 'Color' ? entry : entry.resolved();
 
     _merge(output, recurseForPath(entry.parent, {
-      [entry.name]: new ocoColorvalueEx.OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
+      [entry.name]: new OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
     }));
   });
   return output;
@@ -248,7 +242,7 @@ function oco2Vars(oco$$1, prefix = '') {
   return output;
 }
 
-const console = verbosity.createConsole({
+const console = createConsole({
   outStream: process.stderr
 });
 function paletteReader(pathArray) {
@@ -258,8 +252,4 @@ function paletteWriter(destination, palette) {
   return writer(destination, palette);
 }
 
-exports.console = console;
-exports.paletteReader = paletteReader;
-exports.paletteWriter = paletteWriter;
-exports.oco2Object = oco2Object;
-exports.oco2Vars = oco2Vars;
+export { console, paletteReader, paletteWriter, oco2Object, oco2Vars };
