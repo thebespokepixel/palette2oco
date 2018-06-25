@@ -49,7 +49,7 @@
     "globby": "^8.0.1",
     "lodash": "^4.17.10",
     "opencolor": "^0.2.0",
-    "read-pkg": "^3.0.0",
+    "read-pkg": "^4.0.0",
     "shelljs": "^0.8.2",
     "trucolor": "^0.7.1",
     "truwrap": "^0.8.1",
