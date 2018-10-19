@@ -17,7 +17,9 @@
     "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
     "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
     "readme": "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
-    "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html"
+    "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -55,7 +57,8 @@
     "truwrap": "^0.8.1",
     "update-notifier": "^2.5.0",
     "verbosity": "^0.9.1",
-    "yargs": "^11.0.0"
+    "yargs": "^12.0.2",
+    "snyk": "^1.104.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.51",
@@ -138,5 +141,6 @@
   },
   "engines": {
     "node": ">=8.0"
-  }
+  },
+  "snyk": true
 }
