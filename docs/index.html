@@ -2,94 +2,93 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>@thebespokepixel/palette2oco 0.1.7 | Documentation</title>
+  <title>@thebespokepixel/palette2oco 0.2.2 | Documentation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/css/ace.min.css" rel="stylesheet">
   <link href="assets/fonts/TypoPRO-Hack/TypoPRO-Hack.css" type="text/css" rel="stylesheet" />
   <link href="assets/fonts/TypoPRO-FiraSans/TypoPRO-FiraSans.css" type="text/css" rel="stylesheet" />
   <link href="assets/css/style.css" type="text/css" rel="stylesheet" />
+  <meta name='description' content='Convert directories of Sip, JSON and ASE palette files to Open Color'>
 </head>
-<body class="m0 documentation">
+<body class='documentation m0'>
   <div class="flex">
-    <div class="flex-column fixed top-0 bottom-0 px2 pt2 max-height-100 sidebar">
-      <h3 class="m0 no-anchor">@thebespokepixel/palette2oco</h3>
-      <div class="mb1"><code>v0.1.7</code></div>
-      <input
-        placeholder="Filter"
-        id="filter-input"
-        class="col12 block input"
-        type="text" />
-      <div id="toc">
-        <ul class="list-reset h5 py1-ul">
-          
+    <div id='split-left' class='overflow-auto fs0 height-100 sidebar'>
+      <div class='py1 px2'>
+        <h3 class="m0 no-anchor">@thebespokepixel/palette2oco</h3>
+        <div class="mb1"><code>0.2.2</code></div>
+        <input
+          placeholder="Filter"
+          id="filter-input"
+          class="col12 block input"
+          type="text" />
+        <div id="toc">
+          <ul class="list-reset h5 py1-ul">
             
-            <li><a
-              href="#usage"
-              class="h5 bold black caps">
-              Usage
               
-            </a>
-            
-            </li>
-          
-            
-            <li><a
-              href="#api"
-              class="h5 bold black caps">
-              API
+              <li><a
+                href="#usage"
+                class="h5 bold black caps">
+                Usage
+                
+              </a>
               
-            </a>
+              </li>
             
-            </li>
-          
-            
-            <li><a
-              href="#palettereader"
-              class="">
-              paletteReader
               
-            </a>
-            
-            </li>
-          
-            
-            <li><a
-              href="#palettewriter"
-              class="">
-              paletteWriter
+              <li><a
+                href="#api"
+                class="h5 bold black caps">
+                API
+                
+              </a>
               
-            </a>
+              </li>
             
-            </li>
-          
-        </ul>
-      </div>
-      <div class="badges"><p><a href="https://github.com/MarkGriffiths/palette2oco" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> <a href="https://travis-ci.org/MarkGriffiths/palette2oco" title="Travis"><img src="https://img.shields.io/travis/MarkGriffiths/palette2oco.svg?branch=master&#x26;style=flat" alt="Travis"></a> <br>
-</p>
- 
-<p><a href="https://codeclimate.com/github/MarkGriffiths/palette2oco" title="Code-climate"><img src="https://codeclimate.com/github/MarkGriffiths/palette2oco/badges/gpa.svg?style=flat" alt="Code-climate"></a> <a href="https://codeclimate.com/github/MarkGriffiths/palette2oco/coverage" title="Coverage"><img src="https://codeclimate.com/github/MarkGriffiths/palette2oco/badges/coverage.svg?style=flat" alt="Coverage"></a> <br>
-</p>
- 
-<p><a href="https://david-dm.org/MarkGriffiths/palette2oco/master" title="David"><img src="https://img.shields.io/david/MarkGriffiths/palette2oco.svg?branch=master&#x26;style=flat" alt="David"></a> <br>
-</p>
- 
-<br>
-
-</div>
-      <div class="mt1 h6 quiet">
-        <a href="http://documentation.js.org/reading-documentation.html">Need help reading this?</a>
+              
+              <li><a
+                href="#palettereader"
+                class="">
+                paletteReader
+                
+              </a>
+              
+              </li>
+            
+              
+              <li><a
+                href="#palettewriter"
+                class="">
+                paletteWriter
+                
+              </a>
+              
+              </li>
+            
+          </ul>
+        </div>
+        <div class="badges"><p><p><a href="https://github.com/MarkGriffiths/palette2oco" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> <a href="https://travis-ci.org/MarkGriffiths/palette2oco" title="Travis"><img src="https://img.shields.io/travis/MarkGriffiths/palette2oco.svg?branch=master&#x26;style=flat&#x26;logo=travis" alt="Travis"></a> <br>
+</p> <p><a href="https://codeclimate.com/github/MarkGriffiths/palette2oco/maintainability" title="Code-climate"><img src="https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/maintainability?style=flat" alt="Code-climate"></a> <a href="https://codeclimate.com/github/MarkGriffiths/palette2oco/test_coverage" title="Coverage"><img src="https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/test_coverage?style=flat" alt="Coverage"></a> <br>
+</p> <p><a href="https://david-dm.org/MarkGriffiths/palette2oco/master" title="David"><img src="https://img.shields.io/david/MarkGriffiths/palette2oco.svg?branch=master&#x26;style=flat" alt="David"></a> <br>
+</p> <br>
+</p></div>
+        <div class="mt1 h6 quiet">
+          <a href="http://documentation.js.org/reading-documentation.html">Need help reading this?</a>
+        </div>
       </div>
     </div>
-    <div class="flex-column px2 sidespace">
+    <!-- <div class="flex-column px2 sidespace">
       <h3 class="m0 no-anchor">@thebespokepixel/palette2oco</h3>
-    </div>
-    <div class="flex-auto px2 pt1">
+    </div> -->
+    <div id='split-right' class='relative overflow-auto height-viewport-100'>
       
         
-          <div class="keyline-top-not py1"><section class="py0 px2 clearfix note">
-	<h3 id="usage" class="m0">
+          <div class="keyline-top-not py1"><section class="py0 px3 clearfix note">
+	<h2 id="usage" class="m0">
 		Usage
-	</h3>
+	</h2>
+	
+		
+
 	
 	
 		<h4>Load structured palette data from various tools into Open Color format.</h4>
@@ -135,10 +134,10 @@ paletteReader(pathRoot).load(pathArray)
         
       
         
-          <div class="keyline-top-not py1"><section class="py0 px2 clearfix note">
-	<h3 id="api" class="m0">
+          <div class="keyline-top-not py1"><section class="py0 px3 clearfix note">
+	<h2 id="api" class="m0">
 		API
-	</h3>
+	</h2>
 	
 		
 
@@ -149,23 +148,32 @@ paletteReader(pathRoot).load(pathArray)
         
       
         
-          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+          <section class='p2 pl3 mb2 ml2 mr2 clearfix bg-white rounded minishadow'>
 
   
-  <div class="clearfix">
-    <h3 class="left m0 panel-title" id="palettereader">
-      paletteReader  <span>→ Reader</span>
-    </h3>
+  <div class='clearfix'>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/3a54bd5dbfc2173c7c0d1a196ce6b683c42a4e30/src/index.js#L21-L23">src/index.js</a>
+      <a class='pl3 pr1 right rounded github' href='https://MarkGriffiths@github.com/MarkGriffiths/palette2oco/blob/8ddf0eaa8e4713f762bfd557f97eb21ed3519a80/src/index.js#L21-L23'>
+      <span>src/index.js</span>
+      </a>
+    
+    
+    <h3 class='left m0 panel-title' id='palettereader'>
+      paletteReader
+      
+      <span> → Reader</span>
+      
+    </h3>
     
   </div>
   
 
   <p>Read source data from an array of paths and return a Reader instance.</p>
 
+
   
-  <div class="pre p1 bg-darken-1 mt0 signature">paletteReader(pathArray: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>) → Reader</div>
+    <div class='pre p1 bg-darken-1 mt0 rounded signature'>paletteReader(pathArray: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>) → Reader</div>
+  
   
   
 
@@ -174,14 +182,16 @@ paletteReader(pathRoot).load(pathArray)
   
   
   
+  
 
   
-    <div class="py1 quiet mt1 prose-big">Parameters</div>
-    <div class="prose">
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
-        <div class="space-bottom0">
+        <div class='space-bottom0'>
           <div>
-            <span class="code bold">pathArray</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code> An Array of paths to load.
+            <span class='code bold'>pathArray</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>)</code>
+      An Array of paths to load.
 
           </div>
           
@@ -194,7 +204,7 @@ paletteReader(pathRoot).load(pathArray)
 
   
     
-      <div class="py1 quiet mt1 prose-big">Returns</div>
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>Reader</code>:
         The Reader instance.
 
@@ -216,23 +226,32 @@ paletteReader(pathRoot).load(pathArray)
         
       
         
-          <section class="py2 px3 mb2 clearfix bg-white rounded minishadow">
+          <section class='p2 pl3 mb2 ml2 mr2 clearfix bg-white rounded minishadow'>
 
   
-  <div class="clearfix">
-    <h3 class="left m0 panel-title" id="palettewriter">
-      paletteWriter  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>
-    </h3>
+  <div class='clearfix'>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/palette2oco/blob/3a54bd5dbfc2173c7c0d1a196ce6b683c42a4e30/src/index.js#L31-L33">src/index.js</a>
+      <a class='pl3 pr1 right rounded github' href='https://MarkGriffiths@github.com/MarkGriffiths/palette2oco/blob/8ddf0eaa8e4713f762bfd557f97eb21ed3519a80/src/index.js#L31-L33'>
+      <span>src/index.js</span>
+      </a>
+    
+    
+    <h3 class='left m0 panel-title' id='palettewriter'>
+      paletteWriter
+      
+      <span> → <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>
+      
+    </h3>
     
   </div>
   
 
   <p>Write an Open Color format palette to the destination.</p>
 
+
   
-  <div class="pre p1 bg-darken-1 mt0 signature">paletteWriter(destination: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, palette: OpenColor) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+    <div class='pre p1 bg-darken-1 mt0 rounded signature'>paletteWriter(destination: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, palette: OpenColor) → <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+  
   
   
 
@@ -241,22 +260,25 @@ paletteReader(pathRoot).load(pathArray)
   
   
   
+  
 
   
-    <div class="py1 quiet mt1 prose-big">Parameters</div>
-    <div class="prose">
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
-        <div class="space-bottom0">
+        <div class='space-bottom0'>
           <div>
-            <span class="code bold">destination</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> The destination path.
+            <span class='code bold'>destination</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+      The destination path.
 
           </div>
           
         </div>
       
-        <div class="space-bottom0">
+        <div class='space-bottom0'>
           <div>
-            <span class="code bold">palette</span> <code class="quiet">(OpenColor)</code> The Open Color palette data.
+            <span class='code bold'>palette</span> <code class='quiet'>(OpenColor)</code>
+      The Open Color palette data.
 
           </div>
           
@@ -269,8 +291,8 @@ paletteReader(pathRoot).load(pathArray)
 
   
     
-      <div class="py1 quiet mt1 prose-big">Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         A promise that resoves when file is saved.
 
       
@@ -293,6 +315,7 @@ paletteReader(pathRoot).load(pathArray)
     </div>
   </div>
   <script src="assets/js/anchor.min.js"></script>
+  <script src="assets/js/split.min.js"></script>
   <script src="assets/js/site.js"></script>
 </body>
 </html>
