@@ -1,9 +1,9 @@
 import test from 'ava'
-import {cat} from 'shelljs'
+import {readFileSync} from 'fs'
 import {paletteReader} from '..'
 
 test('Named palette (JSON)', async t => {
-	const fixture = cat('test/fixtures/out/json.oco').toString()
+	const fixture = readFileSync('test/fixtures/out/json.oco').toString()
 	await paletteReader('test/fixtures/in/json')
 		.load(['test/fixtures/in/json/test.json'])
 		.then(palette => {
@@ -12,7 +12,7 @@ test('Named palette (JSON)', async t => {
 })
 
 test('Transformed palette (JSON)', async t => {
-	const fixture = cat('test/fixtures/out/json-hsl.oco').toString()
+	const fixture = readFileSync('test/fixtures/out/json-hsl.oco').toString()
 	await paletteReader('test/fixtures/in/json')
 		.load(['test/fixtures/in/json/test.json'])
 		.then(palette => {
@@ -33,7 +33,7 @@ test('Bad color (JSON)', async t => {
 })
 
 test('Named palette (Sip palette)', async t => {
-	const fixture = cat('test/fixtures/out/sippalette.oco').toString()
+	const fixture = readFileSync('test/fixtures/out/sippalette.oco').toString()
 	await paletteReader('test/fixtures/in/sippalette')
 		.load(['test/fixtures/in/sippalette/test.sippalette'])
 		.then(palette => {
@@ -42,7 +42,7 @@ test('Named palette (Sip palette)', async t => {
 })
 
 test('Named palette (OCO)', async t => {
-	const fixture = cat('test/fixtures/out/oco.oco').toString()
+	const fixture = readFileSync('test/fixtures/out/oco.oco').toString()
 	await paletteReader('test/fixtures/in/oco')
 		.load(['test/fixtures/in/oco/test.oco'])
 		.then(palette => {
@@ -51,7 +51,7 @@ test('Named palette (OCO)', async t => {
 })
 
 test('Named palette (ASE)', async t => {
-	const fixture = cat('test/fixtures/out/ase.oco').toString()
+	const fixture = readFileSync('test/fixtures/out/ase.oco').toString()
 	await paletteReader('test/fixtures/in/ase')
 		.load(['test/fixtures/in/ase/test.ase'])
 		.then(palette => {
@@ -66,7 +66,7 @@ test('Invalid palette (ASE)', async t => {
 })
 
 test('Photoshop palette (ASE)', async t => {
-	const fixture = cat('test/fixtures/out/ps-test.oco').toString()
+	const fixture = readFileSync('test/fixtures/out/ps-test.oco').toString()
 	await paletteReader('test/fixtures/in/ase')
 		.load(['test/fixtures/in/ase/ps-test.ase'])
 		.then(palette => {
