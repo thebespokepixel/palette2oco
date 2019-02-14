@@ -4,7 +4,7 @@
 
 import fs from 'fs'
 import {promisify} from 'es6-promisify'
-import {console} from './main'
+import {console} from '.'
 
 const writeFile = promisify(fs.writeFile)
 
