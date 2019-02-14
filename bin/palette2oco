@@ -20,9 +20,174 @@ var commonTags = require('common-tags');
 var string = require('@thebespokepixel/string');
 var yargs = _interopDefault(require('yargs'));
 var globby = _interopDefault(require('globby'));
-var readPkg = _interopDefault(require('read-pkg'));
 var updateNotifier = _interopDefault(require('update-notifier'));
 var trucolor = require('trucolor');
+
+const name = "@thebespokepixel/palette2oco";
+const version = "0.2.0";
+const description = "Convert directories of Sip, JSON and ASE palette files to Open Color";
+const main = "index.js";
+const module$1 = "index.mjs";
+const files = [
+	"bin/",
+	"index.js",
+	"index.mjs"
+];
+const bin = {
+	palette2oco: "./bin/palette2oco"
+};
+const scripts = {
+	test: "xo && nyc ava",
+	"doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
+	readme: "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
+	coverage: "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html"
+};
+const repository = {
+	type: "git",
+	url: "git+https://github.com/MarkGriffiths/palette2oco.git"
+};
+const keywords = [
+	"Open",
+	"Color",
+	"oco",
+	"sip",
+	"ase",
+	"json",
+	"color",
+	"colour",
+	"converter"
+];
+const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
+const license = "MIT";
+const bugs = {
+	url: "https://github.com/MarkGriffiths/palette2oco/issues"
+};
+const homepage = "https://github.com/MarkGriffiths/palette2oco#readme";
+const dependencies = {
+	"@thebespokepixel/oco-colorvalue-ex": "^0.3.1",
+	"@thebespokepixel/string": "^0.5.2",
+	"ase-util": "^1.0.1",
+	"common-tags": "^1.8.0",
+	"es6-promisify": "^6.0.1",
+	globby: "^8.0.2",
+	lodash: "^4.17.11",
+	opencolor: "^0.2.0",
+	shelljs: "^0.8.3",
+	trucolor: "^0.7.2",
+	truwrap: "^0.8.2",
+	"update-notifier": "^2.5.0",
+	verbosity: "^0.10.0",
+	yargs: "^13.1.0"
+};
+const devDependencies = {
+	"@babel/core": "^7.2.2",
+	"@babel/preset-env": "^7.3.1",
+	acorn: "^6.1.0",
+	ava: "^1.2.1",
+	"babel-plugin-lodash": "^3.3.4",
+	documentation: "^9.1.1",
+	"documentation-theme-bespoke": "^0.4.4",
+	esm: "^3.2.4",
+	gulp: "^4.0.0",
+	"gulp-better-rollup": "^3.4.0",
+	"gulp-chmod": "^2.0.0",
+	"gulp-rename": "^1.4.0",
+	nyc: "^13.2.0",
+	"rollup-plugin-babel": "^4.3.2",
+	"rollup-plugin-commonjs": "^9.2.0",
+	"rollup-plugin-json": "^3.1.0",
+	"rollup-plugin-node-resolve": "^4.0.0",
+	xo: "^0.24.0"
+};
+const xo = {
+	semicolon: false,
+	esnext: true,
+	ignores: [
+		"index.js",
+		"index.mjs",
+		"bin/**",
+		"docs/**"
+	]
+};
+const badges = {
+	github: "MarkGriffiths",
+	npm: "thebespokepixel",
+	name: "palette2oco",
+	codeclimate: "1a636cbbe7b06bdc499c",
+	providers: {
+		status: {
+			text: "beta",
+			color: "blue"
+		},
+		aux1: {
+			title: "github",
+			text: "source",
+			color: "4E73B6",
+			link: "https://github.com/MarkGriffiths/palette2oco"
+		}
+	},
+	readme: {
+		Status: [
+			[
+				"status",
+				"npm",
+				"travis",
+				"david"
+			],
+			[
+				"code-climate",
+				"code-climate-coverage",
+				"snyk"
+			]
+		],
+		Developer: [
+			"david-dev",
+			"rollup"
+		],
+		Help: [
+			"inch",
+			"gitter"
+		]
+	},
+	docs: [
+		[
+			"aux1",
+			"travis"
+		],
+		[
+			"code-climate",
+			"code-climate-coverage"
+		],
+		[
+			"david"
+		]
+	]
+};
+const engines = {
+	node: ">=8.0"
+};
+var pkg = {
+	name: name,
+	version: version,
+	description: description,
+	main: main,
+	module: module$1,
+	files: files,
+	bin: bin,
+	scripts: scripts,
+	repository: repository,
+	keywords: keywords,
+	author: author,
+	license: license,
+	bugs: bugs,
+	homepage: homepage,
+	dependencies: dependencies,
+	devDependencies: devDependencies,
+	xo: xo,
+	badges: badges,
+	engines: engines
+};
 
 const loader = es6Promisify.promisify(fs.readFile);
 const supportedTypes = ['oco', 'json', 'sippalette', 'ase'];
@@ -230,14 +395,11 @@ function paletteWriter(destination, palette) {
 const clr = trucolor.simple({
   format: 'sgr'
 });
-
-const _package = readPkg.sync(path.resolve(__dirname, '..'));
-
 const renderer = truwrap.truwrap({
   outStream: process.stderr
 });
 const colorReplacer = new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer(/([a-zA-Z]+?)[:/|](.+)/, (match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`));
-const title = string.box(colorReplacer`${'title|palette2oco'}${`dim| │ v${_package.version}`}`, {
+const title = string.box(colorReplacer`${'title|palette2oco'}${`dim| │ v${pkg.version}`}`, {
   borderColor: 'red',
   margin: {
     top: 1
@@ -304,7 +466,7 @@ const {
 
 if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
   updateNotifier({
-    pkg: _package
+    pkg
   }).notify();
 }
 
@@ -319,7 +481,7 @@ if (argv.help) {
 }
 
 if (argv.version) {
-  process.stdout.write(argv.version > 1 ? `${_package.name} v${_package.version}` : _package.version);
+  process.stdout.write(argv.version > 1 ? `${pkg.name} v${pkg.version}` : pkg.version);
   process.exit(0);
 }
 
@@ -353,8 +515,8 @@ async function processor(paths) {
 if (argv._.length > 1) {
   try {
     processor(_initial(argv._));
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 } else {

@@ -10,14 +10,12 @@ import {stripIndent, TemplateTag, replaceSubstitutionTransformer} from 'common-t
 import {box} from '@thebespokepixel/string'
 import yargs from 'yargs'
 import globby from 'globby'
-import readPkg from 'read-pkg'
 import updateNotifier from 'update-notifier'
 import {simple} from 'trucolor'
-import {console, paletteReader, paletteWriter} from './main'
+import pkg from '../package'
+import {console, paletteReader, paletteWriter} from '.'
 
 const clr = simple({format: 'sgr'})
-
-const _package = readPkg.sync(resolve(__dirname, '..'))
 
 const renderer = truwrap({
 	outStream: process.stderr
@@ -30,7 +28,7 @@ const colorReplacer = new TemplateTag(
 	)
 )
 
-const title = box(colorReplacer`${'title|palette2oco'}${`dim| │ v${_package.version}`}`, {
+const title = box(colorReplacer`${'title|palette2oco'}${`dim| │ v${pkg.version}`}`, {
 	borderColor: 'red',
 	margin: {
 		top: 1
@@ -98,9 +96,7 @@ yargs.strict().help(false).version(false).options({
 const {argv} = yargs
 
 if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
-	updateNotifier({
-		pkg: _package
-	}).notify()
+	updateNotifier({pkg}).notify()
 }
 
 if (argv.help) {
@@ -114,7 +110,7 @@ if (argv.help) {
 }
 
 if (argv.version) {
-	process.stdout.write(argv.version > 1 ? `${_package.name} v${_package.version}` : _package.version)
+	process.stdout.write(argv.version > 1 ? `${pkg.name} v${pkg.version}` : pkg.version)
 	process.exit(0)
 }
 
@@ -146,8 +142,8 @@ async function processor(paths) {
 if (argv._.length > 1) {
 	try {
 		processor(_.initial(argv._))
-	} catch (err) {
-		console.error(err)
+	} catch (error) {
+		console.error(error)
 		process.exit(1)
 	}
 } else {

@@ -21,13 +21,15 @@ test('Transformed palette (JSON)', async t => {
 })
 
 test('Bad palette (JSON)', async t => {
-	await t.throws(paletteReader('test/fixtures/in/json')
-		.load(['test/fixtures/in/json/invalid.json']))
+	await t.throwsAsync(async () => paletteReader('test/fixtures/in/json').load(
+		['test/fixtures/in/json/invalid.json']
+	))
 })
 
 test('Bad color (JSON)', async t => {
-	await t.throws(paletteReader('test/fixtures/in/json')
-		.load(['test/fixtures/in/json/bad-color.json']))
+	await t.throwsAsync(async () => paletteReader('test/fixtures/in/json').load(
+		['test/fixtures/in/json/bad-color.json']
+	))
 })
 
 test('Named palette (Sip palette)', async t => {
@@ -58,8 +60,9 @@ test('Named palette (ASE)', async t => {
 })
 
 test('Invalid palette (ASE)', async t => {
-	await t.throws(paletteReader('test/fixtures/in/ase')
-		.load(['test/fixtures/in/ase/invalid.ase']))
+	await t.throwsAsync(async () => paletteReader('test/fixtures/in/ase').load(
+		['test/fixtures/in/ase/invalid.ase']
+	))
 })
 
 test('Photoshop palette (ASE)', async t => {

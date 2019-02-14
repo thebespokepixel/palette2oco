@@ -11,6 +11,7 @@ export function oco2Object(oco) {
 		if (entry.name === 'Root') {
 			return tree
 		}
+
 		return recurseForPath(entry.parent, {
 			[entry.name]: tree
 		})
@@ -22,6 +23,7 @@ export function oco2Object(oco) {
 			[entry.name]: new OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
 		}))
 	})
+
 	return output
 }
 
@@ -31,11 +33,14 @@ export function oco2Vars(oco, prefix = '') {
 		if (entry.name === 'Root') {
 			return ''
 		}
+
 		return `${recurseForPath(entry.parent)} ${entry.name}`
 	}
+
 	oco.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved()
 		output += `${prefix}${_.kebabCase(recurseForPath(entry))} = ${color.get(0).identifiedValue.toString('rgb')}\n`
 	})
+
 	return output
 }

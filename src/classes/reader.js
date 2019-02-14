@@ -12,7 +12,7 @@ import {promisify} from 'es6-promisify'
 import {OCOValueEX, fromPrecise, fromBytes} from '@thebespokepixel/oco-colorvalue-ex'
 import oco from 'opencolor'
 import ase from 'ase-util'
-import {console} from '../main'
+import {console} from '..'
 
 const loader = promisify(fs.readFile)
 
@@ -97,6 +97,7 @@ async function loadJSON(identity) {
 			)]
 		)
 	}
+
 	throw new Error(`${identity.name}.json is not a valid palette`)
 }
 
@@ -154,6 +155,7 @@ async function loadASE(identity) {
 			scan(palette)
 		)
 	}
+
 	throw new Error(`${identity.name}.ase is not a valid palette`)
 }
 
