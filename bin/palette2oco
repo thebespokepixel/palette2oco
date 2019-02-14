@@ -24,7 +24,7 @@ var updateNotifier = _interopDefault(require('update-notifier'));
 var trucolor = require('trucolor');
 
 const name = "@thebespokepixel/palette2oco";
-const version = "0.2.0";
+const version = "0.2.5";
 const description = "Convert directories of Sip, JSON and ASE palette files to Open Color";
 const main = "index.js";
 const module$1 = "index.mjs";
@@ -38,8 +38,8 @@ const bin = {
 };
 const scripts = {
 	test: "xo && nyc ava",
-	"doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
-	"doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
 	readme: "compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
 	coverage: "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html"
 };
@@ -65,17 +65,16 @@ const bugs = {
 };
 const homepage = "https://github.com/MarkGriffiths/palette2oco#readme";
 const dependencies = {
-	"@thebespokepixel/oco-colorvalue-ex": "^0.3.1",
-	"@thebespokepixel/string": "^0.5.2",
+	"@thebespokepixel/oco-colorvalue-ex": "^0.3.4",
+	"@thebespokepixel/string": "^0.5.3",
 	"ase-util": "^1.0.1",
 	"common-tags": "^1.8.0",
 	"es6-promisify": "^6.0.1",
-	globby: "^8.0.2",
+	globby: "^9.0.0",
 	lodash: "^4.17.11",
 	opencolor: "^0.2.0",
-	shelljs: "^0.8.3",
-	trucolor: "^0.7.2",
-	truwrap: "^0.8.2",
+	trucolor: "^0.7.4",
+	truwrap: "^0.8.3",
 	"update-notifier": "^2.5.0",
 	verbosity: "^0.10.0",
 	yargs: "^13.1.0"
@@ -87,7 +86,7 @@ const devDependencies = {
 	ava: "^1.2.1",
 	"babel-plugin-lodash": "^3.3.4",
 	documentation: "^9.1.1",
-	"documentation-theme-bespoke": "^0.4.4",
+	"documentation-theme-bespoke": "^0.4.7",
 	esm: "^3.2.4",
 	gulp: "^4.0.0",
 	"gulp-better-rollup": "^3.4.0",
