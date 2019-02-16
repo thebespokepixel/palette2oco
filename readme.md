@@ -4,7 +4,7 @@
 
 ##### Status
 
-![Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat) [![npm](https://img.shields.io/npm/v/@thebespokepixel/palette2oco.svg?style=flat&logo=npm)](https://www.npmjs.com/package/@thebespokepixel/palette2oco "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/palette2oco.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/palette2oco "Travis") [![David](https://img.shields.io/david/MarkGriffiths/palette2oco.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/palette2oco/master "David")  
+[![npm](https://img.shields.io/npm/v/@thebespokepixel/palette2oco.svg?style=flat&logo=npm)](https://www.npmjs.com/package/@thebespokepixel/palette2oco "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/palette2oco.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/palette2oco "Travis") [![David](https://img.shields.io/david/MarkGriffiths/palette2oco.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/palette2oco/master "David")  
  [![Code-climate](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/maintainability?style=flat)](https://codeclimate.com/github/MarkGriffiths/palette2oco/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/test_coverage?style=flat)](https://codeclimate.com/github/MarkGriffiths/palette2oco/test_coverage "Coverage") [![Snyk](https://snyk.io/test/github/MarkGriffiths/palette2oco/badge.svg?style=flat)](https://snyk.io/test/github/MarkGriffiths/palette2oco "Snyk")   
 
 ##### Developer
