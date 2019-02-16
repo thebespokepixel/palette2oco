@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/MarkGriffiths/palette2oco#readme",
   "dependencies": {
-    "@thebespokepixel/oco-colorvalue-ex": "^0.3.4",
+    "@thebespokepixel/oco-colorvalue-ex": "^1.0.0",
     "@thebespokepixel/string": "^0.5.3",
     "ase-util": "^1.0.1",
     "common-tags": "^1.8.0",
