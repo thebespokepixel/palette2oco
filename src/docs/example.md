@@ -1,7 +1,7 @@
 #### Load structured palette data from various tools into Open Color format.
 
 ```js
-import {paletteReader, paletteWriter, console} from 'palette2oco'
+import {paletteReader, paletteWriter, oco2Object, oco2Vars} from 'palette2oco'
 
 paletteReader(pathRoot).load(pathArray)
   .then(palette => palette.render(ocoPath))

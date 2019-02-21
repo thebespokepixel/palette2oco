@@ -41,8 +41,8 @@
   },
   "homepage": "https://github.com/MarkGriffiths/palette2oco#readme",
   "dependencies": {
-    "@thebespokepixel/oco-colorvalue-ex": "^1.0.0",
-    "@thebespokepixel/string": "^0.5.4",
+    "@thebespokepixel/oco-colorvalue-ex": "^1.0.1",
+    "@thebespokepixel/string": "^0.5.5",
     "ase-util": "^1.0.1",
     "common-tags": "^1.8.0",
     "es6-promisify": "^6.0.1",
@@ -53,7 +53,7 @@
     "truwrap": "^1.0.0",
     "update-notifier": "^2.5.0",
     "verbosity": "^1.0.0",
-    "yargs": "^13.2.0"
+    "yargs": "^13.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",

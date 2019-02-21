@@ -15,7 +15,7 @@ env:
   global:
     - CC_TEST_REPORTER_ID=dbcf573a62a61124502dc95bfb2bf764425247fb7f4b3f568db4f9aaba04fd78
 before_install:
-  - '[[ $(node -v) =~ ^v10.*$ ]] || npm install -g npm@latest'
+  - '[[ $(node -v) =~ ^v11.*$ ]] || npm install -g npm@latest'
   - npm install -g greenkeeper-lockfile
 install: npm install
 before_script:
