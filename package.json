@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/palette2oco",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Convert directories of Sip, JSON and ASE palette files to Open Color",
   "main": "index.js",
   "module": "index.mjs",
