@@ -24,7 +24,7 @@ require('lodash/kebabCase');
 require('lodash/merge');
 
 const name = "@thebespokepixel/palette2oco";
-const version = "1.0.3";
+const version = "1.0.4";
 const description = "Convert directories of Sip, JSON and ASE palette files to Open Color";
 const main = "index.js";
 const module$1 = "index.mjs";
