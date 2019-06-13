@@ -3,18 +3,9 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var _isEqual = _interopDefault(require('lodash/isEqual'));
-var path = require('path');
-var fs = _interopDefault(require('fs'));
-var es6Promisify = require('es6-promisify');
-var ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex');
-var oco = _interopDefault(require('opencolor'));
-var ase = _interopDefault(require('ase-util'));
-require('lodash/kebabCase');
-require('lodash/merge');
-var verbosity = require('verbosity');
 var _initial = _interopDefault(require('lodash/initial'));
 var _tail = _interopDefault(require('lodash/tail'));
+var path = require('path');
 var truwrap = require('truwrap');
 var commonTags = require('common-tags');
 var string = require('@thebespokepixel/string');
@@ -22,6 +13,15 @@ var yargs = _interopDefault(require('yargs'));
 var globby = _interopDefault(require('globby'));
 var updateNotifier = _interopDefault(require('update-notifier'));
 var trucolor = require('trucolor');
+var verbosity = require('verbosity');
+var _isEqual = _interopDefault(require('lodash/isEqual'));
+var fs = _interopDefault(require('fs'));
+var es6Promisify = require('es6-promisify');
+var ocoColorvalueEx = require('@thebespokepixel/oco-colorvalue-ex');
+var oco = _interopDefault(require('opencolor'));
+var ase = _interopDefault(require('ase-util'));
+require('lodash/kebabCase');
+require('lodash/merge');
 
 const name = "@thebespokepixel/palette2oco";
 const version = "1.0.3";
@@ -65,36 +65,37 @@ const bugs = {
 };
 const homepage = "https://github.com/MarkGriffiths/palette2oco#readme";
 const dependencies = {
-	"@thebespokepixel/oco-colorvalue-ex": "^4.0.0",
+	"@thebespokepixel/oco-colorvalue-ex": "^4.0.1",
 	"@thebespokepixel/string": "^0.5.6",
 	"ase-util": "^1.0.1",
 	"common-tags": "^1.8.0",
 	"es6-promisify": "^6.0.1",
-	globby: "^9.0.0",
+	globby: "^9.2.0",
 	lodash: "^4.17.11",
 	opencolor: "^0.2.0",
-	trucolor: "^1.0.1",
-	truwrap: "^1.0.1",
-	"update-notifier": "^2.5.0",
-	verbosity: "^1.0.1",
-	yargs: "^13.2.1"
+	trucolor: "^1.0.2",
+	truwrap: "^1.0.2",
+	"update-notifier": "^3.0.0",
+	verbosity: "^1.1.0",
+	yargs: "^13.2.4"
 };
 const devDependencies = {
-	"@babel/core": "^7.3.3",
-	"@babel/preset-env": "^7.3.1",
-	ava: "^1.2.1",
+	"@babel/core": "^7.4.5",
+	"@babel/preset-env": "^7.4.5",
+	ava: "^2.1.0",
 	"babel-plugin-lodash": "^3.3.4",
-	"documentation-theme-bespoke": "^0.5.2",
-	esm: "^3.2.6",
-	gulp: "^4.0.0",
-	"gulp-better-rollup": "^3.4.0",
-	"gulp-chmod": "^2.0.0",
+	"documentation-theme-bespoke": "^0.5.6",
+	esm: "^3.2.25",
+	gulp: "^4.0.2",
+	"gulp-better-rollup": "^4.0.1",
+	"gulp-chmod": "^3.0.0",
 	"gulp-rename": "^1.4.0",
-	nyc: "^13.3.0",
+	nyc: "^14.1.1",
+	rollup: "^1.15.3",
 	"rollup-plugin-babel": "^4.3.2",
-	"rollup-plugin-commonjs": "^9.2.1",
-	"rollup-plugin-json": "^3.1.0",
-	"rollup-plugin-node-resolve": "^4.0.1",
+	"rollup-plugin-commonjs": "^10.0.0",
+	"rollup-plugin-json": "^4.0.0",
+	"rollup-plugin-node-resolve": "^5.0.2",
 	xo: "^0.24.0"
 };
 const xo = {
@@ -188,10 +189,10 @@ const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`);
 const fileMatch = new RegExp(`(.*/)*(.+?).(${supportedTypes.join('|')})$`);
 
 function createIdentity(rootPath) {
-  return function (path$$1) {
-    const address = path$$1.replace(rootPath, '').match(fileMatch);
+  return function (path) {
+    const address = path.replace(rootPath, '').match(fileMatch);
     return {
-      source: path$$1,
+      source: path,
       name: address[2],
       path: address[1].replace(/^\//, '').replace(/\//g, '.'),
       type: address[3]
@@ -363,8 +364,8 @@ class Reader {
     return this;
   }
 
-  render(path$$1) {
-    return oco.render(this.pick(path$$1));
+  render(path) {
+    return oco.render(this.pick(path));
   }
 
 }
