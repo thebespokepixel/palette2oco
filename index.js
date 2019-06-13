@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
+var verbosity = require('verbosity');
 var _isEqual = _interopDefault(require('lodash/isEqual'));
 var path = require('path');
 var fs = _interopDefault(require('fs'));
@@ -13,7 +14,6 @@ var oco = _interopDefault(require('opencolor'));
 var ase = _interopDefault(require('ase-util'));
 var _kebabCase = _interopDefault(require('lodash/kebabCase'));
 var _merge = _interopDefault(require('lodash/merge'));
-var verbosity = require('verbosity');
 
 const loader = es6Promisify.promisify(fs.readFile);
 const supportedTypes = ['oco', 'json', 'sippalette', 'ase'];
@@ -21,10 +21,10 @@ const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`);
 const fileMatch = new RegExp(`(.*/)*(.+?).(${supportedTypes.join('|')})$`);
 
 function createIdentity(rootPath) {
-  return function (path$$1) {
-    const address = path$$1.replace(rootPath, '').match(fileMatch);
+  return function (path) {
+    const address = path.replace(rootPath, '').match(fileMatch);
     return {
-      source: path$$1,
+      source: path,
       name: address[2],
       path: address[1].replace(/^\//, '').replace(/\//g, '.'),
       type: address[3]
@@ -196,8 +196,8 @@ class Reader {
     return this;
   }
 
-  render(path$$1) {
-    return oco.render(this.pick(path$$1));
+  render(path) {
+    return oco.render(this.pick(path));
   }
 
 }
@@ -208,7 +208,7 @@ function writer(destination, contents) {
   return writeFile(destination, contents);
 }
 
-function oco2Object(oco$$1) {
+function oco2Object(oco) {
   const output = {};
 
   const recurseForPath = (entry, tree) => {
@@ -221,7 +221,7 @@ function oco2Object(oco$$1) {
     });
   };
 
-  oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
+  oco.tree.traverseTree(['Color', 'Reference'], entry => {
     const color = entry.type === 'Color' ? entry : entry.resolved();
 
     _merge(output, recurseForPath(entry.parent, {
@@ -230,7 +230,7 @@ function oco2Object(oco$$1) {
   });
   return output;
 }
-function oco2Vars(oco$$1, prefix = '') {
+function oco2Vars(oco, prefix = '') {
   let output = '';
 
   const recurseForPath = entry => {
@@ -241,7 +241,7 @@ function oco2Vars(oco$$1, prefix = '') {
     return `${recurseForPath(entry.parent)} ${entry.name}`;
   };
 
-  oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
+  oco.tree.traverseTree(['Color', 'Reference'], entry => {
     const color = entry.type === 'Color' ? entry : entry.resolved();
     output += `${prefix}${_kebabCase(recurseForPath(entry))} = ${color.get(0).identifiedValue.toString('rgb')}\n`;
   });
@@ -259,7 +259,7 @@ function paletteWriter(destination, palette) {
 }
 
 exports.console = console;
-exports.paletteReader = paletteReader;
-exports.paletteWriter = paletteWriter;
 exports.oco2Object = oco2Object;
 exports.oco2Vars = oco2Vars;
+exports.paletteReader = paletteReader;
+exports.paletteWriter = paletteWriter;

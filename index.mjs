@@ -1,3 +1,4 @@
+import { createConsole } from 'verbosity';
 import _isEqual from 'lodash/isEqual';
 import { relative } from 'path';
 import fs from 'fs';
@@ -7,7 +8,6 @@ import oco from 'opencolor';
 import ase from 'ase-util';
 import _kebabCase from 'lodash/kebabCase';
 import _merge from 'lodash/merge';
-import { createConsole } from 'verbosity';
 
 const loader = promisify(fs.readFile);
 const supportedTypes = ['oco', 'json', 'sippalette', 'ase'];
@@ -202,7 +202,7 @@ function writer(destination, contents) {
   return writeFile(destination, contents);
 }
 
-function oco2Object(oco$$1) {
+function oco2Object(oco) {
   const output = {};
 
   const recurseForPath = (entry, tree) => {
@@ -215,7 +215,7 @@ function oco2Object(oco$$1) {
     });
   };
 
-  oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
+  oco.tree.traverseTree(['Color', 'Reference'], entry => {
     const color = entry.type === 'Color' ? entry : entry.resolved();
 
     _merge(output, recurseForPath(entry.parent, {
@@ -224,7 +224,7 @@ function oco2Object(oco$$1) {
   });
   return output;
 }
-function oco2Vars(oco$$1, prefix = '') {
+function oco2Vars(oco, prefix = '') {
   let output = '';
 
   const recurseForPath = entry => {
@@ -235,7 +235,7 @@ function oco2Vars(oco$$1, prefix = '') {
     return `${recurseForPath(entry.parent)} ${entry.name}`;
   };
 
-  oco$$1.tree.traverseTree(['Color', 'Reference'], entry => {
+  oco.tree.traverseTree(['Color', 'Reference'], entry => {
     const color = entry.type === 'Color' ? entry : entry.resolved();
     output += `${prefix}${_kebabCase(recurseForPath(entry))} = ${color.get(0).identifiedValue.toString('rgb')}\n`;
   });
@@ -252,4 +252,4 @@ function paletteWriter(destination, palette) {
   return writer(destination, palette);
 }
 
-export { console, paletteReader, paletteWriter, oco2Object, oco2Vars };
+export { console, oco2Object, oco2Vars, paletteReader, paletteWriter };
