@@ -1,5 +1,5 @@
-import test from 'ava'
 import {readFileSync} from 'fs'
+import test from 'ava'
 import {paletteReader} from '..'
 
 test('Named palette (JSON)', async t => {
