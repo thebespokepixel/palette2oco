@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MarkGriffiths/palette2oco.git"
+    "url": "git+https://github.com/thebespokepixel/palette2oco.git"
   },
   "keywords": [
     "Open",
@@ -37,28 +37,28 @@
   "author": "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MarkGriffiths/palette2oco/issues"
+    "url": "https://github.com/thebespokepixel/palette2oco/issues"
   },
-  "homepage": "https://github.com/MarkGriffiths/palette2oco#readme",
+  "homepage": "https://github.com/thebespokepixel/palette2oco#readme",
   "dependencies": {
-    "@thebespokepixel/oco-colorvalue-ex": "^4.0.1",
-    "@thebespokepixel/string": "^0.5.6",
-    "ase-util": "^1.0.1",
+    "@thebespokepixel/oco-colorvalue-ex": "^4.0.2",
+    "@thebespokepixel/string": "^0.5.8",
+    "ase-util": "^1.0.2",
     "common-tags": "^1.8.0",
     "es6-promisify": "^6.0.1",
-    "globby": "^9.2.0",
-    "lodash": "^4.17.11",
+    "globby": "^10.0.1",
+    "lodash": "^4.17.15",
     "opencolor": "^0.2.0",
-    "trucolor": "^1.0.2",
-    "truwrap": "^1.0.2",
-    "update-notifier": "^3.0.0",
-    "verbosity": "^1.1.0",
-    "yargs": "^13.2.4"
+    "trucolor": "^1.0.3",
+    "truwrap": "^1.0.3",
+    "update-notifier": "^3.0.1",
+    "verbosity": "^1.1.1",
+    "yargs": "^13.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "ava": "^2.1.0",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "ava": "^2.2.0",
     "babel-plugin-lodash": "^3.3.4",
     "documentation-theme-bespoke": "^0.5.6",
     "esm": "^3.2.25",
@@ -67,11 +67,11 @@
     "gulp-chmod": "^3.0.0",
     "gulp-rename": "^1.4.0",
     "nyc": "^14.1.1",
-    "rollup": "^1.15.3",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup": "^1.19.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "xo": "^0.24.0"
   },
   "xo": {
@@ -85,16 +85,16 @@
     ]
   },
   "badges": {
-    "github": "MarkGriffiths",
+    "github": "thebespokepixel",
     "npm": "thebespokepixel",
     "name": "palette2oco",
-    "codeclimate": "1a636cbbe7b06bdc499c",
+    "codeclimate": "d58dd3cdc1459632afa5",
     "providers": {
       "aux1": {
         "title": "github",
         "text": "source",
         "color": "4E73B6",
-        "link": "https://github.com/MarkGriffiths/palette2oco"
+        "link": "https://github.com/thebespokepixel/palette2oco"
       }
     },
     "readme": {
@@ -116,8 +116,7 @@
         "rollup"
       ],
       "Help": [
-        "inch",
-        "gitter"
+        "inch"
       ]
     },
     "docs": [

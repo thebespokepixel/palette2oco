@@ -9,6 +9,6 @@ ${badges}
 ${usage}
 
 ## Documentation
-Full documentation can be found at [https://markgriffiths.github.io/palette2oco/][1]
+Full documentation can be found at [https://thebespokepixel.github.io/palette2oco/][1]
 
-[1]: https://markgriffiths.github.io/palette2oco/
+[1]: https://thebespokepixel.github.io/palette2oco/
