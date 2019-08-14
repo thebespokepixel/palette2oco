@@ -1,32 +1,33 @@
----
 branches:
   only:
-    - master
-    - develop
-    - /^greenkeeper/.*$/
-    - /^feature/.*$/
+  - master
+  - develop
+  - "/^greenkeeper/.*$/"
+  - "/^feature/.*$/"
 language: node_js
 node_js:
-  - stable
-  - 11
-  - 10
-  - 9
-  - 8
+- stable
+- 11
+- 10
+- 9
+- 8
 env:
   global:
-    - CC_TEST_REPORTER_ID=e76c076f5e9770ccb2a6c493f644db0dd5445ecece80288d64bd035f59e2f148
+  - CC_TEST_REPORTER_ID=e76c076f5e9770ccb2a6c493f644db0dd5445ecece80288d64bd035f59e2f148
 before_install:
-  - '[[ $(node -v) =~ ^v12.*$ ]] || npm install -g npm@latest'
-  - npm install -g greenkeeper-lockfile
+- "[[ $(node -v) =~ ^v12.*$ ]] || npm install -g npm@latest"
+- npm install -g greenkeeper-lockfile
 install: npm install
 before_script:
-  - greenkeeper-lockfile-update
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- greenkeeper-lockfile-update
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 after_script:
-  - greenkeeper-lockfile-upload
-  - "[ $TRAVIS_NODE_VERSION = stable ]
-  && nyc report --reporter=lcov
-  && ./cc-test-reporter after-build --debug -t lcov --exit-code $TRAVIS_TEST_RESULT
-  || echo 'Coverage skipped'"
+- greenkeeper-lockfile-upload
+- "[ $TRAVIS_NODE_VERSION = stable ] && nyc report --reporter=lcov && ./cc-test-reporter
+  after-build --debug -t lcov --exit-code $TRAVIS_TEST_RESULT || echo 'Coverage skipped'"
+notifications:
+  slack:
+    secure: vPLEkZ7WN8Xo6pZvPdw7VesYETraEWROy7+b+aPzk4AFp8PHbH7CQ96DJtyseIXbdjUVKChw061BLqs1UwzaW3VDmM7TSsuRrGyExMJ0T5ANO7rVr1uqgwg0TPbPA0G2ZP5d0ArUYoAO4vzU7GRENDYgdqC3waCwfkqgR8TZPhV+HXTw/YnWfUGaOi5Cwtfch7qzL4hN9WpX6ZLkySCq0moxyF72OKfiR4Y2DtPIwTheAJFffauTHyTBiEfiQFsvmSzKuzMDJJ+LTGraJLuivTEVC11nnT17cJ+BXhK79gFOUMYqCbTxxHmKNZ6skWqwhtAOIAziWSDqX0o4ar8iijxdfMxiOeWeG4mIWf26P8bXTey6+AW26SHPvDg+twxuGo7rh5dKsxqSmzjDYzmOlToecf7EOE6+RKVJtykHNBKcAesTfTNx3/1o8Z9EDwmtuyzecWncwA6j0h0tP46AJ9lbcdELAk5e19AD6EU1q/+mZBvDehUtoCYCSt3hEFcOPCN/Soa0rkUEhu2a1FJxfUo15zASwVzFo/kscErnu4D0/J1ii64X2lETOYeJqac3a7ZdWP4ix+7rSKyd12OOEUjSux4nJmTqJ5XcEQzCeh9v9rWcgxne2kD7kZOz6Xtw5yORSeQziL7NRW43esBPtk7MUd6zHfGLdm9FcPd9Kn4=
