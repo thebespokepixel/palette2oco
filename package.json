@@ -51,7 +51,7 @@
     "opencolor": "^0.2.0",
     "trucolor": "^1.0.6",
     "truwrap": "^1.0.5",
-    "update-notifier": "^3.0.1",
+    "update-notifier": "^4.0.0",
     "verbosity": "^1.1.3",
     "yargs": "^13.3.0"
   },
