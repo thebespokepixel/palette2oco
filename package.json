@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/thebespokepixel/palette2oco#readme",
   "dependencies": {
-    "@thebespokepixel/oco-colorvalue-ex": "^4.0.2",
+    "@thebespokepixel/oco-colorvalue-ex": "^5.0.0",
     "@thebespokepixel/string": "^0.5.8",
     "ase-util": "^1.0.2",
     "common-tags": "^1.8.0",
