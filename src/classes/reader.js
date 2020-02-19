@@ -56,7 +56,7 @@ function isPaletteJSON(datum) {
 			name: (typeof datum.name === 'string') && datum.name,
 			colors: (Array.isArray(datum.colors)) && datum.colors
 		},
-		rgba: testPaletteJSONColor(datum, 0.0, 1.0),
+		rgba: testPaletteJSONColor(datum, 0, 1),
 		rgbaInteger: testPaletteJSONColor(datum, 0, 255)
 	}
 	return {

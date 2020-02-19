@@ -3,7 +3,7 @@ import _isEqual from 'lodash/isEqual';
 import { relative } from 'path';
 import fs from 'fs';
 import { promisify } from 'es6-promisify';
-import { OCOValueEX, fromPrecise, fromBytes } from '@thebespokepixel/oco-colorvalue-ex';
+import { OCOValueEX, fromBytes, fromPrecise } from '@thebespokepixel/oco-colorvalue-ex';
 import oco from 'opencolor';
 import ase from 'ase-util';
 import _kebabCase from 'lodash/kebabCase';
@@ -42,7 +42,7 @@ function isPaletteJSON(datum) {
       name: typeof datum.name === 'string' && datum.name,
       colors: Array.isArray(datum.colors) && datum.colors
     },
-    rgba: testPaletteJSONColor(datum, 0.0, 1.0),
+    rgba: testPaletteJSONColor(datum, 0, 1),
     rgbaInteger: testPaletteJSONColor(datum, 0, 255)
   };
   return {

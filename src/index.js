@@ -1,7 +1,7 @@
 /*
  * Open Color Converter for Sip, JSON and ASE palettes
  * ──────────────────────────────────────────────────────────────
- * ©2016 Mark Griffiths @ The Bespoke Pixel (MIT licensed)
+ * ©2019 Mark Griffiths @ The Bespoke Pixel (MIT licensed)
  */
 
 import {createConsole} from 'verbosity'
