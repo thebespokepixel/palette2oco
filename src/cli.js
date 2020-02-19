@@ -12,7 +12,7 @@ import yargs from 'yargs'
 import globby from 'globby'
 import updateNotifier from 'update-notifier'
 import {simple} from 'trucolor'
-import pkg from '../package'
+import pkg from '../package.json'
 import {console, paletteReader, paletteWriter} from '.'
 
 const clr = simple({format: 'sgr'})
