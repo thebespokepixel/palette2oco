@@ -42,7 +42,7 @@
   "homepage": "https://github.com/thebespokepixel/palette2oco#readme",
   "dependencies": {
     "@thebespokepixel/oco-colorvalue-ex": "^5.0.0",
-    "@thebespokepixel/string": "^0.5.10",
+    "@thebespokepixel/string": "^1.0.0",
     "ase-util": "^1.0.3",
     "common-tags": "^1.8.0",
     "es6-promisify": "^6.0.2",
@@ -52,7 +52,7 @@
     "trucolor": "^1.0.6",
     "truwrap": "^1.0.5",
     "update-notifier": "^4.1.0",
-    "verbosity": "^1.2.0",
+    "verbosity": "^2.0.0",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
