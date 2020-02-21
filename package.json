@@ -50,7 +50,7 @@
     "lodash": "^4.17.15",
     "opencolor": "^0.2.0",
     "trucolor": "^2.0.0",
-    "truwrap": "^2.0.0",
+    "truwrap": "^2.0.1",
     "update-notifier": "^4.1.0",
     "verbosity": "^2.0.0",
     "yargs": "^15.1.0"
