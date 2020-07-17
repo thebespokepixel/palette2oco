@@ -218,7 +218,7 @@ export default class Reader {
 	async load(pathArray) {
 		await Promise.all(pathArray
 			.filter(file => file.match(fileFilter))
-			.map(createIdentity(this.sourcePath))
+			.map(file => createIdentity(this.sourcePath)(file))
 			.map(async identity => {
 				const entry = await selectLoaderByIndentity(identity.type)(identity)
 				entry.addMetadata({
