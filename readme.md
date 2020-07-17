@@ -9,8 +9,7 @@
 
 ##### Development Status
 
-[![Greenkeeper](https://badges.greenkeeper.io/thebespokepixel/palette2oco.svg)](https://greenkeeper.io/ "Greenkeeper") [![Travis](https://img.shields.io/travis/com/thebespokepixel/palette2oco/develop?logo=travis)](https://travis-ci.com/thebespokepixel/palette2oco "Travis")  
- [![David](https://david-dm.org/thebespokepixel/palette2oco/develop/status.svg)](https://david-dm.org/thebespokepixel/palette2oco/develop "David") [![David-developer](https://david-dm.org/thebespokepixel/palette2oco/develop/dev-status.svg)](https://david-dm.org/thebespokepixel/palette2oco/develop?type=dev "David-developer")  
+[![Travis](https://img.shields.io/travis/com/thebespokepixel/palette2oco/develop?logo=travis)](https://travis-ci.com/thebespokepixel/palette2oco "Travis") [![David](https://david-dm.org/thebespokepixel/palette2oco/develop/status.svg)](https://david-dm.org/thebespokepixel/palette2oco/develop "David") [![David-developer](https://david-dm.org/thebespokepixel/palette2oco/develop/dev-status.svg)](https://david-dm.org/thebespokepixel/palette2oco/develop?type=dev "David-developer")  
  [![Snyk](https://snyk.io/test/github/thebespokepixel/palette2oco/badge.svg)](https://snyk.io/test/github/thebespokepixel/palette2oco "Snyk") [![Code-climate](https://api.codeclimate.com/v1/badges/d58dd3cdc1459632afa5/maintainability)](https://codeclimate.com/github/thebespokepixel/palette2oco/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/d58dd3cdc1459632afa5/test_coverage)](https://codeclimate.com/github/thebespokepixel/palette2oco/test_coverage "Coverage")   
 
 ##### Documentation/Help
