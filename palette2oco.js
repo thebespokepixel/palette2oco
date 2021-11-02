@@ -19,7 +19,7 @@ import oco from 'opencolor';
 import ase from 'ase-util';
 
 const name = "@thebespokepixel/palette2oco";
-const version = "3.0.0";
+const version = "3.0.1";
 const description = "Convert directories of Sip, JSON and ASE palette files to Open Color";
 const main = "index.js";
 const types = "index.d.ts";
