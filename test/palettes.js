@@ -1,6 +1,6 @@
-import {readFileSync} from 'fs'
+import {readFileSync} from 'node:fs'
 import test from 'ava'
-import {paletteReader} from '..'
+import {paletteReader} from '../index.js'
 
 test('Named palette (JSON)', async t => {
 	const fixture = readFileSync('test/fixtures/out/json.oco').toString()
@@ -22,13 +22,13 @@ test('Transformed palette (JSON)', async t => {
 
 test('Bad palette (JSON)', async t => {
 	await t.throwsAsync(async () => paletteReader('test/fixtures/in/json').load(
-		['test/fixtures/in/json/invalid.json']
+		['test/fixtures/in/json/invalid.json'],
 	))
 })
 
 test('Bad color (JSON)', async t => {
 	await t.throwsAsync(async () => paletteReader('test/fixtures/in/json').load(
-		['test/fixtures/in/json/bad-color.json']
+		['test/fixtures/in/json/bad-color.json'],
 	))
 })
 
@@ -61,7 +61,7 @@ test('Named palette (ASE)', async t => {
 
 test('Invalid palette (ASE)', async t => {
 	await t.throwsAsync(async () => paletteReader('test/fixtures/in/ase').load(
-		['test/fixtures/in/ase/invalid.ase']
+		['test/fixtures/in/ase/invalid.ase'],
 	))
 })
 

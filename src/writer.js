@@ -2,7 +2,7 @@
  │ palette2oco │ File writing promise
  ╰─────────────┴─────────────────────────────────────────────────────────────── */
 
-import fs from 'fs'
+import fs from 'node:fs'
 import {promisify} from 'es6-promisify'
 import {console} from '.'
 

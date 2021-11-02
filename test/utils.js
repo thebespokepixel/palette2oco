@@ -1,6 +1,6 @@
 import test from 'ava'
 import {OCOValueEX} from '@thebespokepixel/oco-colorvalue-ex'
-import {paletteReader, oco2Object, oco2Vars} from '..'
+import {paletteReader, oco2Object, oco2Vars} from '../index.js'
 
 const objectTemplate = {
 	test: {
@@ -10,9 +10,9 @@ const objectTemplate = {
 			Lime: new OCOValueEX('rgb(0, 240, 0)', 'Lime'),
 			'Turquoise Blue': new OCOValueEX('rgba(0, 240, 240, 0.6)', 'Turquoise Blue'),
 			Blue: new OCOValueEX('rgb(0, 0, 240)', 'Blue'),
-			Fuchsia: new OCOValueEX('rgb(240, 0, 240)', 'Fuchsia')
-		}
-	}
+			Fuchsia: new OCOValueEX('rgb(240, 0, 240)', 'Fuchsia'),
+		},
+	},
 }
 
 const varTemplate = `test-test-ku-crimson = rgb(240, 0, 0)
