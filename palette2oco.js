@@ -19,7 +19,7 @@ import oco from 'opencolor';
 import ase from 'ase-util';
 
 const name = "@thebespokepixel/palette2oco";
-const version = "2.0.2";
+const version = "3.0.0";
 const description = "Convert directories of Sip, JSON and ASE palette files to Open Color";
 const main = "index.js";
 const types = "index.d.ts";
@@ -522,18 +522,16 @@ async function processor(paths) {
 			console.error('palette2oco needs at least a source.');
 			process.exit(1);
 		}
-	} else {
-		if (argv._.length > 1) {
-			try {
-				const dest = resolve(_.tail(argv._)[0]);
-				paletteWriter(dest, await processor(_.initial(argv._)));
-			} catch (error) {
-				console.error(error);
-				process.exit(1);
-			}
-		} else {
-			console.error('palette2oco needs at least a source and a destination.');
+	} else if (argv._.length > 1) {
+		try {
+			const dest = resolve(_.tail(argv._)[0]);
+			paletteWriter(dest, await processor(_.initial(argv._)));
+		} catch (error) {
+			console.error(error);
 			process.exit(1);
 		}
+	} else {
+		console.error('palette2oco needs at least a source and a destination.');
+		process.exit(1);
 	}
 })();
