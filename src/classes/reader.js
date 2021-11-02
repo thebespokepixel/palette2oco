@@ -1,18 +1,19 @@
 /*
  * Open Color Converter for Sip, JSON and ASE palettes
  * ──────────────────────────────────────────────────────────────
- * ©2016 Mark Griffiths @ The Bespoke Pixel (MIT licensed)
+ * ©2021 Mark Griffiths @ The Bespoke Pixel (MIT licensed)
  */
+/* eslint node/prefer-global/process: [error] */
 
-import {relative as relativePath} from 'path'
-import fs from 'fs'
+import {relative as relativePath} from 'node:path'
+import fs from 'node:fs'
 
 import _ from 'lodash'
 import {promisify} from 'es6-promisify'
 import {OCOValueEX, fromPrecise, fromBytes} from '@thebespokepixel/oco-colorvalue-ex'
 import oco from 'opencolor'
 import ase from 'ase-util'
-import {console} from '..'
+import {console} from '../index.js'
 
 const loader = promisify(fs.readFile)
 
@@ -20,7 +21,7 @@ const supportedTypes = [
 	'oco',
 	'json',
 	'sippalette',
-	'ase'
+	'ase',
 ]
 
 const fileFilter = new RegExp(`.(${supportedTypes.join('|')})$`)
@@ -35,7 +36,7 @@ function createIdentity(rootPath) {
 			source: path,
 			name: address[2],
 			path: address[1].replace(/^\//, '').replace(/\//g, '.'),
-			type: address[3]
+			type: address[3],
 		}
 	}
 }
@@ -46,7 +47,7 @@ function testPaletteJSONColor(datum, min, max) {
 		red: (datum.red >= min && datum.red <= max) && datum.red,
 		green: (datum.green >= min && datum.green <= max) && datum.green,
 		blue: (datum.blue >= min && datum.blue <= max) && datum.blue,
-		alpha: (datum.alpha >= min && datum.alpha <= max) && datum.alpha
+		alpha: (datum.alpha >= min && datum.alpha <= max) && datum.alpha,
 	}
 }
 
@@ -54,15 +55,15 @@ function isPaletteJSON(datum) {
 	const tests = {
 		palette: {
 			name: (typeof datum.name === 'string') && datum.name,
-			colors: (Array.isArray(datum.colors)) && datum.colors
+			colors: (Array.isArray(datum.colors)) && datum.colors,
 		},
 		rgba: testPaletteJSONColor(datum, 0, 1),
-		rgbaInteger: testPaletteJSONColor(datum, 0, 255)
+		rgbaInteger: testPaletteJSONColor(datum, 0, 255),
 	}
 	return {
 		isPalette: _.isEqual(datum, tests.palette),
 		isRGBA: _.isEqual(datum, tests.rgba),
-		isIntegerRGBA: _.isEqual(datum, tests.rgbaInteger)
+		isIntegerRGBA: _.isEqual(datum, tests.rgbaInteger),
 	}
 }
 
@@ -93,8 +94,8 @@ async function loadJSON(identity) {
 						default:
 							throw new Error(`${color.name}.json is not a valid JSON color object`)
 					}
-				})
-			)]
+				}),
+			)],
 		)
 	}
 
@@ -117,14 +118,14 @@ async function loadASE(identity) {
 								cyan: datum.color.c,
 								magenta: datum.color.m,
 								yellow: datum.color.y,
-								black: datum.color.k
+								black: datum.color.k,
 							}, datum.name)
 						case 'LAB':
 							console.debug(`ASE Color (Lab): ${datum.name}`)
 							return new OCOValueEX({
 								L: datum.color.lightness,
 								a: datum.color.a,
-								b: datum.color.b
+								b: datum.color.b,
 							}, datum.name)
 						default:
 							throw new Error(`${datum.color.model} is not a valid ASE color model`)
@@ -134,7 +135,7 @@ async function loadASE(identity) {
 					console.debug(`ASE Group: ${datum.name}`)
 					return OCOValueEX.generateOCO(
 						datum.name,
-						scan(datum.entries)
+						scan(datum.entries),
 					)
 
 				default:
@@ -149,10 +150,10 @@ async function loadASE(identity) {
 	if (Array.isArray(palette)) {
 		return palette.length === 1 ? new oco.Entry(
 			identity.name,
-			scan(palette)
+			scan(palette),
 		) : OCOValueEX.generateOCO(
 			identity.name,
-			scan(palette)
+			scan(palette),
 		)
 	}
 
@@ -195,16 +196,16 @@ export default class Reader {
 			const original = color_.get(0).identifiedValue.getOriginalInput()
 			color_.children = []
 
-			formats.forEach((format, index_) => {
+			for (const [index_, format] of formats.entries()) {
 				const newFormat = new OCOValueEX(original, color_.name)
 				newFormat._format = format
 
 				color_.addChild(new oco.ColorValue(
 					format,
 					newFormat.toString(format),
-					newFormat
+					newFormat,
 				), true, index_)
-			})
+			}
 		})
 		return this
 	}
@@ -223,10 +224,10 @@ export default class Reader {
 				const entry = await selectLoaderByIndentity(identity.type)(identity)
 				entry.addMetadata({
 					'import/file/source': relativePath(process.cwd(), identity.source),
-					'import/file/type': identity.type
+					'import/file/type': identity.type,
 				})
 				this.tree.set(`${identity.path}${identity.name}`, entry)
-			})
+			}),
 		)
 		return this
 	}

@@ -13,14 +13,14 @@ export function oco2Object(oco) {
 		}
 
 		return recurseForPath(entry.parent, {
-			[entry.name]: tree
+			[entry.name]: tree,
 		})
 	}
 
 	oco.tree.traverseTree(['Color', 'Reference'], entry => {
 		const color = entry.type === 'Color' ? entry : entry.resolved()
 		_.merge(output, recurseForPath(entry.parent, {
-			[entry.name]: new OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name)
+			[entry.name]: new OCOValueEX(color.get(0).identifiedValue.getOriginalInput(), entry.name),
 		}))
 	})
 
