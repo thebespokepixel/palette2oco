@@ -7,6 +7,9 @@ engines:
       - javascript
   eslint:
     enabled: true
+    checks:
+      comma-dangle:
+        enabled: false
     config:
       config: test/fixtures/config/.eslintrc
   fixme:
@@ -17,7 +20,5 @@ ratings:
 exclude_paths:
 - test/
 - docs/
-- bin/
 - index.js
-- index.mjs
-- gulpfile.js
+- index.d.ts

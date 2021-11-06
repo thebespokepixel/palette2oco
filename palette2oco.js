@@ -19,7 +19,7 @@ import oco from 'opencolor';
 import ase from 'ase-util';
 
 const name = "@thebespokepixel/palette2oco";
-const version = "3.0.1";
+const version = "3.0.2";
 const description = "Convert directories of Sip, JSON and ASE palette files to Open Color";
 const main = "index.js";
 const types = "index.d.ts";
@@ -66,19 +66,19 @@ const bugs = {
 };
 const homepage = "https://github.com/thebespokepixel/palette2oco#readme";
 const dependencies = {
-	"@thebespokepixel/meta": "^3.0.4",
-	"@thebespokepixel/oco-colorvalue-ex": "^6.0.0",
-	"@thebespokepixel/string": "^1.0.3",
+	"@thebespokepixel/meta": "^3.0.5",
+	"@thebespokepixel/oco-colorvalue-ex": "^6.0.1",
+	"@thebespokepixel/string": "^2.0.1",
 	"ase-util": "^1.0.3",
 	"common-tags": "^1.8.0",
 	"es6-promisify": "^7.0.0",
 	globby: "^12.0.2",
 	lodash: "^4.17.21",
 	opencolor: "^0.2.0",
-	trucolor: "^2.0.4",
-	truwrap: "^2.0.4",
+	trucolor: "^4.0.4",
+	truwrap: "^4.0.4",
 	"update-notifier": "^5.1.0",
-	verbosity: "^2.0.2",
+	verbosity: "^3.0.2",
 	yargs: "^17.2.1"
 };
 const devDependencies = {
@@ -88,10 +88,10 @@ const devDependencies = {
 	"@types/estree": "^0.0.50",
 	ava: "^4.0.0-rc.1",
 	c8: "^7.10.0",
-	"documentation-theme-bespoke": "^2.0.12",
+	"documentation-theme-bespoke": "^2.0.14",
 	rollup: "^2.59.0",
 	"rollup-plugin-cleanup": "^3.2.1",
-	xo: "^0.46.3"
+	xo: "^0.46.4"
 };
 const xo = {
 	semicolon: false,
@@ -99,7 +99,6 @@ const xo = {
 		"index.js",
 		"palette2oco.js",
 		"index.d.ts",
-		"lib/**",
 		"docs/**",
 		"coverage/**"
 	]
@@ -473,15 +472,17 @@ if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)
 	updateNotifier({pkg}).notify();
 }
 if (argv.help) {
-	const usageContent = await yargsInstance.wrap(renderer.getWidth()).getHelp();
-	renderer.write(title).break(2);
-	renderer.write(usage);
-	renderer.break(2);
-	renderer.write(usageContent);
-	renderer.break();
-	renderer.write(epilogue);
-	renderer.break(1);
-	process.exit(0);
+	(async () => {
+		const usageContent = await yargsInstance.wrap(renderer.getWidth()).getHelp();
+		renderer.write(title).break(2);
+		renderer.write(usage);
+		renderer.break(2);
+		renderer.write(usageContent);
+		renderer.break();
+		renderer.write(epilogue);
+		renderer.break(1);
+		process.exit(0);
+	})();
 }
 if (argv.version) {
 	process.stdout.write(metadata.version(argv.version));
