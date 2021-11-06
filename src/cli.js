@@ -112,15 +112,17 @@ if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)
 }
 
 if (argv.help) {
-	const usageContent = await yargsInstance.wrap(renderer.getWidth()).getHelp()
-	renderer.write(title).break(2)
-	renderer.write(usage)
-	renderer.break(2)
-	renderer.write(usageContent)
-	renderer.break()
-	renderer.write(epilogue)
-	renderer.break(1)
-	process.exit(0)
+	(async () => {
+		const usageContent = await yargsInstance.wrap(renderer.getWidth()).getHelp()
+		renderer.write(title).break(2)
+		renderer.write(usage)
+		renderer.break(2)
+		renderer.write(usageContent)
+		renderer.break()
+		renderer.write(epilogue)
+		renderer.break(1)
+		process.exit(0)
+	})()
 }
 
 if (argv.version) {
