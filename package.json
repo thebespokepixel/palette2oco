@@ -49,7 +49,7 @@
   "dependencies": {
     "@thebespokepixel/meta": "^3.0.5",
     "@thebespokepixel/oco-colorvalue-ex": "^6.0.1",
-    "@thebespokepixel/string": "^2.0.1",
+    "@thebespokepixel/string": "^2.0.2",
     "ase-util": "^1.0.3",
     "common-tags": "^1.8.0",
     "es6-promisify": "^7.0.0",
@@ -59,7 +59,7 @@
     "trucolor": "^4.0.4",
     "truwrap": "^4.0.4",
     "update-notifier": "^5.1.0",
-    "verbosity": "^3.0.2",
+    "verbosity": "^3.0.3",
     "yargs": "^17.2.1"
   },
   "devDependencies": {
