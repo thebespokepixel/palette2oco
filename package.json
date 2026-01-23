@@ -54,7 +54,7 @@
     "common-tags": "^1.8.0",
     "es6-promisify": "^7.0.0",
     "globby": "^12.0.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "opencolor": "^0.2.0",
     "trucolor": "^4.0.4",
     "truwrap": "^4.0.4",
